@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api.js';
+import { texts } from '@/config';
 
 export const useMusicStore = defineStore('music', {
   state: () => ({ items: [], loading: false, error: null, playing: false, _promise: null }),
@@ -13,7 +14,7 @@ export const useMusicStore = defineStore('music', {
       this.loading = true; this.error = null;
       this._promise = api.getMusic(params)
         .then(({ data }) => { this.items = data.data ?? []; return this.items; })
-        .catch((err) => { this.error = err?.response?.data?.message || 'Gagal memuat musik.'; throw err; })
+        .catch((err) => { this.error = texts.loadError; throw err; })
         .finally(() => { this.loading = false; this._promise = null; });
       return this._promise.catch(() => []);
     },

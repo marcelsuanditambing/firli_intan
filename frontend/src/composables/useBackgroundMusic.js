@@ -4,10 +4,11 @@ import { useMusicStore } from '@/stores/music.js';
 // Singleton audio controller shared across components.
 let audio = null;
 const playing = ref(false);
+const failed = ref(false); // file lagu tidak bisa dimuat -> tombol musik disembunyikan
 
 export function useBackgroundMusic() {
   const store = useMusicStore();
-  const hasTrack = computed(() => !!store.activeTrack);
+  const hasTrack = computed(() => !!store.activeTrack && !failed.value);
 
   async function ensure() {
     await store.fetch();
@@ -18,13 +19,17 @@ export function useBackgroundMusic() {
       audio.preload = 'none';
       audio.addEventListener('play', () => (playing.value = true));
       audio.addEventListener('pause', () => (playing.value = false));
+      audio.addEventListener('error', () => {
+        playing.value = false;
+        failed.value = true;
+      });
     }
     return audio;
   }
 
   async function start() {
     const a = await ensure();
-    if (a) { try { await a.play(); } catch { /* autoplay blocked */ } }
+    if (a) { try { await a.play(); } catch { playing.value = !a.paused; } }
   }
   async function toggle() {
     const a = await ensure();

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api.js';
+import { texts } from '@/config';
 
 export const useGalleryStore = defineStore('gallery', {
   state: () => ({ items: [], meta: null, loading: false, error: null, _promise: null }),
@@ -11,7 +12,7 @@ export const useGalleryStore = defineStore('gallery', {
       this.loading = true; this.error = null;
       this._promise = api.getGallery(params)
         .then(({ data }) => { this.items = data.data ?? []; this.meta = data.meta ?? null; return this.items; })
-        .catch((err) => { this.error = err?.response?.data?.message || 'Gagal memuat galeri foto.'; throw err; })
+        .catch((err) => { this.error = texts.loadError; throw err; })
         .finally(() => { this.loading = false; this._promise = null; });
       return this._promise.catch(() => []);
     },

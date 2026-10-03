@@ -9,6 +9,9 @@
     --c-gold: 201 168 106;
     --c-gold-deep: 176 141 79;
     --c-blush: 231 211 206;
+    --c-btn-from: var(--c-gold-soft);
+    --c-btn-to: var(--c-gold-deep);
+    --c-btn-text: 255 255 255;
 
     --c-cream: 251 248 241;
     --c-ivory: 254 252 248;
@@ -41,11 +44,17 @@
     transition: background-color 0.4s ease, color 0.4s ease;
   }
   h1, h2, h3 { @apply font-display text-ink-soft; }
-  ::selection { background: rgb(var(--c-gold-soft)); color: #4A4038; }
+  /* Cormorant memakai angka gaya lama (1 mirip I); pakai angka sejajar. */
+  .font-display, h1, h2, h3 { font-variant-numeric: lining-nums; }
+  ::selection { background: rgb(var(--c-gold-soft)); color: rgb(var(--c-ink-soft)); }
 }
 
 @layer components {
   .eyebrow { @apply font-sans text-[0.7rem] uppercase tracking-eyebrow text-gold-deep; }
+  /* Kartu/kolom: selalu kontras dengan latar bagiannya (latar bagian bergantian otomatis). */
+  .surface { background-color: rgb(var(--c-ivory)); }
+  .bg-ivory .surface { background-color: rgb(var(--c-cream)); }
+  .btn-solid { @apply bg-gradient-to-br from-btn-from to-btn-to text-btn-text shadow-gold; }
 
   .reveal {
     opacity: 0;

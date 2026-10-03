@@ -1,10 +1,11 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useBabyStore } from '@/stores/baby.js';
-import { sections } from '@/config';
+import { sections, layout } from '@/config';
 
 import HeroSection from '@/components/sections/HeroSection.vue';
 import BabyProfile from '@/components/sections/BabyProfile.vue';
+import NameStorySection from '@/components/sections/NameStorySection.vue';
 import BirthInfo from '@/components/sections/BirthInfo.vue';
 import AgeCounterSection from '@/components/sections/AgeCounterSection.vue';
 import StorySection from '@/components/sections/StorySection.vue';
@@ -21,27 +22,46 @@ import AppFooter from '@/components/layout/AppFooter.vue';
 const baby = useBabyStore();
 onMounted(() => baby.fetch());
 
-// Bagian mana yang tampil diatur di site.config.js -> sections.
-// Kartu dokter ikut bagian Lokasi; bila Lokasi dimatikan, dokter tampil
-// sebagai bagian tersendiri.
-const s = sections;
+// Bagian mana yang tampil (sections) dan urutannya (layout.order) diatur di
+// site.config.js. Kartu dokter ikut bagian Lokasi; bila Lokasi dimatikan,
+// dokter tampil sebagai bagian tersendiri di posisi 'doctors'.
+const COMPONENTS = {
+  profile: BabyProfile,
+  nameStory: NameStorySection,
+  birthInfo: BirthInfo,
+  ageCounter: AgeCounterSection,
+  story: StorySection,
+  timeline: TimelineSection,
+  gallery: GallerySection,
+  gift: GiftSection,
+  location: LocationSection,
+  doctors: DoctorSection,
+  stats: StatsSection,
+  wishes: WishesSection,
+  share: ShareBar,
+};
+const visible = (layout.order || Object.keys(COMPONENTS)).filter((key) => {
+  if (!COMPONENTS[key] || !sections[key]) return false;
+  if (key === 'doctors' && sections.location) return false; // sudah tampil di Lokasi
+  return true;
+});
+
+// Latar selang-seling otomatis (ivory / cream) mengikuti urutan, agar dua bagian
+// bersebelahan tidak berwarna sama. Statistik + ucapan sengaja satu warna.
+const tones = [];
+visible.forEach((key, i) => {
+  const prev = tones[i - 1];
+  if (key === 'wishes' && visible[i - 1] === 'stats') tones.push(prev);
+  else tones.push(prev === 'bg-ivory' ? '' : 'bg-ivory');
+});
 </script>
 
 <template>
   <div>
     <HeroSection />
-    <BabyProfile v-if="s.profile" />
-    <BirthInfo v-if="s.birthInfo" />
-    <AgeCounterSection v-if="s.ageCounter" />
-    <StorySection v-if="s.story" />
-    <TimelineSection v-if="s.timeline" />
-    <GallerySection v-if="s.gallery" />
-    <GiftSection v-if="s.gift" />
-    <LocationSection v-if="s.location" />
-    <DoctorSection v-else-if="s.doctors" />
-    <StatsSection v-if="s.stats" />
-    <WishesSection v-if="s.wishes" />
-    <ShareBar v-if="s.share" />
+    <div v-for="(key, i) in visible" :key="key" :class="tones[i]">
+      <component :is="COMPONENTS[key]" />
+    </div>
     <AppFooter />
   </div>
 </template>

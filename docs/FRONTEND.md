@@ -13,7 +13,7 @@ diedit manual**:
 |---|---|
 | `src/config/site.generated.js` | teks (`texts`), bagian aktif (`sections`), foto profil & makna nama, lokasi, zona waktu, SEO |
 | `src/config/theme.generated.css` | variabel warna aksen `--c-gold*`, `--c-blush` |
-| `src/config/index.js` | pintu masuk: `import { site, texts, sections } from '@/config'` |
+| `src/config/index.js` | pintu masuk: `import { site, texts, sections, layout, t } from '@/config'`; `t('wishesTotal', { n })` mengisi penanda angka |
 
 `vite.config.js` juga membaca config ini untuk menyuntikkan `<title>`, meta
 description, dan tag Open Graph/Twitter ke `index.html` (placeholder
@@ -22,6 +22,9 @@ description, dan tag Open Graph/Twitter ke `index.html` (placeholder
 ## Design tokens (tailwind.config.js)
 - Warna netral: `cream`, `ivory`, `sand`, `shell`, `ink{DEFAULT,soft,muted,faint}` — berbalik otomatis di dark mode.
 - Warna aksen: `gold{soft,DEFAULT,deep}`, `blush` — nilainya dari tema (nama kelas `gold` dipertahankan dari Filo). `rose` = warna error.
+- Warna netral (`cream`, `ivory`, `ink`, …) juga dari tema, untuk mode terang & gelap (`theme.generated.css`, blok `:root` dan `:root.dark`).
+- `.btn-solid` = tombol utama (gradien `btn-from` → `btn-to`, teks `btn-text`).
+- `.surface` = latar kartu; otomatis kontras dengan latar bagiannya (bagian bergantian `bg-ivory` / tanpa latar diatur `HomeView`).
 - Font: `font-display` (Cormorant Garamond), `font-sans` (Jost), `font-script` (Parisienne).
 - Elemen khas: huruf monogram dalam cincin tipis (`ui/Monogram.vue`), dipakai di splash, footer, halaman ucapan & 404.
 
@@ -31,15 +34,15 @@ src/
 ├── config/        site.generated.js, theme.generated.css (hasil generate) + index.js
 ├── components/
 │   ├── layout/    SplashScreen, FloatingDock (BackToTop, ThemeToggle, MusicToggle), AppFooter
-│   ├── sections/  Hero, BabyProfile, BirthInfo, AgeCounter, Story, Timeline, Gallery,
+│   ├── sections/  Hero, BabyProfile, NameStory, BirthInfo, AgeCounter, Story, Timeline, Gallery,
 │   │              Gift, Location (+ dokter), Doctor, Stats, Wishes, ShareBar
-│   └── ui/        Monogram, SectionHeading, SectionDivider, BaseButton, SkeletonLine, SkeletonCard, ErrorState
+│   └── ui/        Monogram, DoctorCard, SectionHeading, SectionDivider, BaseButton, SkeletonLine, SkeletonCard, ErrorState
 ├── composables/   useBabyAge, useBackgroundMusic, useCountUp, useScrollTo, useSeo, useSession, useTheme
 ├── directives/    reveal.js  (v-reveal: animasi saat di-scroll)
 ├── services/      http.js (Axios + ?baby=<slug> otomatis), api.js (peta endpoint)
 ├── stores/        baby, gallery, timeline, music, gifts, wishes, stats, ui  (Pinia)
 ├── utils/         format.js (tanggal/jam/berat/panjang, locale id)
-├── views/         HomeView (menyusun section sesuai `sections`), WishesView (/ucapan), NotFoundView
+├── views/         HomeView (menyusun section sesuai `sections` + `layout.order`), WishesView (/ucapan atau /wishes), NotFoundView
 ├── App.vue        shell: splash + kolom tengah + floating dock
 ├── main.js        registrasi Pinia, Router, v-reveal, CSS tema
 └── style.css      layer Tailwind + reveal/skeleton/reduced-motion
@@ -48,9 +51,9 @@ src/
 ## Perilaku
 - Splash sampai tombol "Lihat Selengkapnya" ditekan; gesture itu juga memutar
   musik (aman dari blokir autoplay) dan mencatat kunjungan (`POST /api/visitor`).
-- Mode penantian otomatis: selama tanggal lahir (+ jam, zona waktu dari config)
-  masih di masa depan, hero/detail/penghitung berganti ke teks "menantikan" dan
-  hitung mundur.
+- Mode penantian: `baby.status` (`expecting` / `born` / `auto`) menentukan hitung
+  mundur vs usia. Teks `{ expecting, born }` dipilih generator saat build.
+- Bahasa (`site.locale`) mengatur format tanggal/angka, label, `lang`, `og:locale`.
 - Tiap section punya tiga state: skeleton saat memuat, `ErrorState` dengan tombol
   coba lagi, dan pesan kosong.
 - Form ucapan menampilkan error per kolom; bila backend auto-approve, ucapan
@@ -59,8 +62,9 @@ src/
 
 ## Menambah section baru
 1. Buat komponen di `components/sections/`.
-2. Tambahkan flag di `DEFAULT_SECTIONS` (`scripts/lib/defaults.mjs`) dan teksnya di `DEFAULT_TEXTS`.
-3. Pasang di `views/HomeView.vue` dengan `v-if="s.namaFlag"`.
+2. Tambahkan flag di `DEFAULT_SECTIONS`, kuncinya di `DEFAULT_LAYOUT.order`, dan teksnya di
+   `DEFAULT_TEXTS_BY_LOCALE` untuk **setiap** bahasa (`scripts/lib/defaults.mjs`).
+3. Daftarkan komponennya di peta `COMPONENTS` pada `views/HomeView.vue`.
 4. Jalankan `node scripts/generate.mjs`.
 
 ## Run

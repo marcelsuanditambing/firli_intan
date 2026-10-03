@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { texts } from '@/config';
 
 const visible = ref(false);
 function onScroll() { visible.value = window.scrollY > 480; }
@@ -19,7 +20,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
     <button
       v-if="visible"
       class="grid h-12 w-12 place-items-center rounded-full border border-shell bg-ivory text-gold-deep shadow-soft transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-deep focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
-      aria-label="Kembali ke atas"
+      :aria-label="texts.ariaBackToTop"
       @click="toTop"
     >
       <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">

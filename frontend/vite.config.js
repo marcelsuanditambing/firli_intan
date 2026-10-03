@@ -12,12 +12,16 @@ function siteHead() {
   return {
     name: 'site-head',
     transformIndexHtml(html) {
-      const { seo, baby, site: s } = site;
+      const { seo, baby, site: s, texts } = site;
+      const lang = s.locale || 'id';
+      const ogLocale = lang === 'en' ? 'en_US' : 'id_ID';
+      const tc = s.themeColor || { light: '#FBF8F1', dark: '#1E1A16' };
       const abs = (p) => (p && s.url && p.startsWith('/') ? `${s.url}${p}` : p || '');
       const tags = [
         `<title>${esc(seo.title)}</title>`,
         `<meta name="description" content="${esc(seo.description)}" />`,
-        `<meta name="author" content="Keluarga ${esc(baby.nickname)}" />`,
+        `<meta name="theme-color" content="${esc(tc.light)}" media="(prefers-color-scheme: light)" />`,
+        `<meta name="theme-color" content="${esc(tc.dark)}" media="(prefers-color-scheme: dark)" />`,
         s.url ? `<link rel="canonical" href="${esc(s.url)}/" />` : '',
         `<meta property="og:type" content="website" />`,
         `<meta property="og:site_name" content="${esc(baby.nickname)}" />`,
@@ -27,14 +31,17 @@ function siteHead() {
         seo.ogImage ? `<meta property="og:image" content="${esc(abs(seo.ogImage))}" />` : '',
         seo.ogImage ? `<meta property="og:image:width" content="1200" />` : '',
         seo.ogImage ? `<meta property="og:image:height" content="630" />` : '',
-        `<meta property="og:locale" content="id_ID" />`,
+        `<meta property="og:locale" content="${ogLocale}" />`,
         `<meta name="twitter:card" content="summary_large_image" />`,
         `<meta name="twitter:title" content="${esc(seo.title)}" />`,
         `<meta name="twitter:description" content="${esc(seo.description)}" />`,
         seo.ogImage ? `<meta name="twitter:image" content="${esc(abs(seo.ogImage))}" />` : '',
         seo.ogImage ? `<link rel="apple-touch-icon" href="${esc(seo.ogImage)}" />` : '',
       ].filter(Boolean);
-      return html.replace('<!-- site:head -->', tags.join('\n    '));
+      return html
+        .replace('<html lang="id">', `<html lang="${lang}">`)
+        .replace('<!-- site:noscript -->', esc(texts.noscript || ''))
+        .replace('<!-- site:head -->', tags.join('\n    '));
     },
   };
 }

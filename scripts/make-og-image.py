@@ -51,6 +51,10 @@ def load_theme():
         "base": rgb("gold", (201, 168, 106)),
         "deep": rgb("gold-deep", (176, 141, 79)),
         "blush": rgb("blush", (231, 211, 206)),
+        # Latar & teks mengikuti tema (mode terang)
+        "cream": rgb("cream", (250, 247, 241)),
+        "ink_soft": rgb("ink-soft", (110, 99, 88)),
+        "ink_muted": rgb("ink-muted", (138, 126, 114)),
     }
 
 
@@ -91,9 +95,10 @@ def main():
     if generic:
         site["baby"]["fullName"] = site["baby"]["nickname"] = "Selamat Datang"
     th = load_theme()
-    cream = (250, 247, 241)
-    ink = (110, 99, 88)
-    ink_muted = (138, 126, 114)
+    cream = th["cream"]
+    ink = th["ink_soft"]
+    ink_muted = th["ink_muted"]
+    locale = site["site"].get("locale", "id")
 
     img = Image.new("RGB", (W * SCALE, H * SCALE), cream)
     d = ImageDraw.Draw(img)
@@ -124,7 +129,7 @@ def main():
         d.text((s(cx) - (bbox[2] - bbox[0]) / 2 - bbox[0], s(cy) - (bbox[3] - bbox[1]) / 2 - bbox[1]), mono, font=f_mono, fill=th["deep"])
 
     # Eyebrow
-    eyebrow = (site["texts"].get("splashEyebrow") or "Pengumuman Kelahiran").upper()
+    eyebrow = (site["texts"].get("splashEyebrow") or site["texts"].get("seoTitleSuffix") or "Pengumuman Kelahiran").upper()
     centered(d, 292, eyebrow, font("Jost-Regular.woff", 22), th["deep"], spacing=7)
 
     # Nama (menyusut otomatis agar muat; pakai nama panggilan bila terlalu panjang)
@@ -149,7 +154,12 @@ def main():
     d.polygon([(s(600), s(y - 6)), (s(606), s(y)), (s(600), s(y + 6)), (s(594), s(y))], fill=th["base"])
 
     # Tagline
-    tagline = "Dengan penuh syukur, kami sambut kehadirannya"
+    default_tagline = {
+        "id": "Dengan penuh syukur, kami sambut kehadirannya",
+        "en": "With grateful hearts, we welcome our little one",
+    }.get(locale, "Dengan penuh syukur, kami sambut kehadirannya")
+    desc = (site.get("seo") or {}).get("description") or ""
+    tagline = desc if (desc and len(desc) <= 64 and not generic) else default_tagline
     centered(d, 524, tagline, font("CormorantGaramond-MediumItalic.woff", 34), ink_muted)
 
     img = img.resize((W, H), Image.LANCZOS)

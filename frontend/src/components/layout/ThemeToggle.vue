@@ -1,12 +1,13 @@
 <script setup>
 import { useTheme } from '@/composables/useTheme.js';
+import { texts } from '@/config';
 const { theme, toggle } = useTheme();
 </script>
 
 <template>
   <button
     class="grid h-12 w-12 place-items-center rounded-full border border-shell bg-ivory text-gold-deep shadow-soft transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-deep focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
-    :aria-label="theme === 'dark' ? 'Mode terang' : 'Mode gelap'"
+    :aria-label="theme === 'dark' ? texts.ariaLightMode : texts.ariaDarkMode"
     @click="toggle"
   >
     <svg v-if="theme === 'dark'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">

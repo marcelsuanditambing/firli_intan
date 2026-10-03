@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useBabyStore } from '@/stores/baby.js';
-import { site, texts } from '@/config';
+import { site, texts, sections } from '@/config';
 import SectionHeading from '@/components/ui/SectionHeading.vue';
 import SkeletonLine from '@/components/ui/SkeletonLine.vue';
 
@@ -9,7 +9,8 @@ const baby = useBabyStore();
 const data = computed(() => baby.data);
 const fullName = computed(() => data.value?.name || site.baby.fullName);
 const profilePhoto = site.baby.profilePhoto;
-const nameMeaning = site.baby.nameMeaning;
+// Bila makna nama punya bagian sendiri (sections.nameStory), tidak diulang di sini.
+const nameMeaning = sections.nameStory ? [] : (site.baby.nameMeaning || []);
 </script>
 
 <template>
@@ -47,10 +48,13 @@ const nameMeaning = site.baby.nameMeaning;
           <div v-if="nameMeaning.length" class="mx-auto mt-8 max-w-md text-left" v-reveal="{ delay: 120 }">
             <p class="eyebrow text-center text-[0.6rem]">{{ texts.nameMeaningLabel }}</p>
             <ul class="mt-4 space-y-4">
-              <li v-for="n in nameMeaning" :key="n.part" class="rounded-2xl border border-shell/70 bg-ivory p-4">
-                <p class="font-display text-xl text-gold-deep">{{ n.part }}</p>
-                <p class="mt-1 text-sm leading-relaxed text-ink-muted">{{ n.meaning }}</p>
-              </li>
+              <template v-for="(n, i) in nameMeaning" :key="i">
+                <li v-if="n.part" class="rounded-2xl border border-shell/70 surface p-4">
+                  <p class="font-display text-xl text-gold-deep">{{ n.part }}</p>
+                  <p class="mt-1 text-sm leading-relaxed text-ink-muted">{{ n.meaning }}</p>
+                </li>
+                <li v-else class="px-2 text-center font-display text-lg italic leading-relaxed text-ink-soft">{{ n.text }}</li>
+              </template>
             </ul>
           </div>
         </template>

@@ -1,11 +1,14 @@
 <script setup>
 import { computed } from 'vue';
 import { useBabyStore } from '@/stores/baby.js';
-import { site, texts } from '@/config';
+import { site, texts, layout } from '@/config';
 import Monogram from '@/components/ui/Monogram.vue';
 
 const baby = useBabyStore();
-const name = computed(() => baby.data?.name || site.baby.fullName);
+// layout.footerName: 'full' = nama lengkap, 'nickname' = nama panggilan
+const name = computed(() =>
+  layout.footerName === 'nickname' ? site.baby.nickname : baby.data?.name || site.baby.fullName
+);
 const parents = computed(() => baby.familyParents);
 const year = new Date().getFullYear();
 const credit = site.site.footerCredit;

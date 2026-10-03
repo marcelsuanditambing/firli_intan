@@ -26,6 +26,12 @@ export default {
         },
         blush: 'rgb(var(--c-blush) / <alpha-value>)',
         rose: '#C9959B', // warna pesan error (tetap)
+        // Tombol utama (gradien) — dari tema
+        btn: {
+          from: 'rgb(var(--c-btn-from) / <alpha-value>)',
+          to: 'rgb(var(--c-btn-to) / <alpha-value>)',
+          text: 'rgb(var(--c-btn-text) / <alpha-value>)',
+        },
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],

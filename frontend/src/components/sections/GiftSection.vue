@@ -10,7 +10,7 @@ const store = useGiftsStore();
 const copied = ref(null);
 onMounted(() => store.fetch());
 
-const typeLabel = { qris: 'QRIS', bank_transfer: 'Transfer Bank', e_wallet: 'E-Wallet' };
+const typeLabel = { qris: texts.giftTypeQris, bank_transfer: texts.giftTypeBank, e_wallet: texts.giftTypeEwallet };
 
 async function copyNumber(gift) {
   if (!gift.account_number) return;
@@ -31,7 +31,7 @@ async function copyNumber(gift) {
 
     <div class="mx-auto mt-10 max-w-sm space-y-4">
       <template v-if="store.loading">
-        <div v-for="i in 2" :key="i" class="rounded-2xl bg-ivory p-6 shadow-soft">
+        <div v-for="i in 2" :key="i" class="rounded-2xl surface p-6 shadow-soft">
           <SkeletonLine width="30%" height="0.7rem" />
           <div class="mt-3"><SkeletonLine width="60%" height="1.3rem" /></div>
           <div class="mt-2"><SkeletonLine width="50%" /></div>
@@ -40,14 +40,14 @@ async function copyNumber(gift) {
 
       <ErrorState v-else-if="store.error" :message="store.error" @retry="store.fetch({}, true)" />
 
-      <p v-else-if="store.isEmpty" class="text-center text-sm text-ink-muted">Informasi hadiah belum tersedia.</p>
+      <p v-else-if="store.isEmpty" class="text-center text-sm text-ink-muted">{{ texts.giftEmpty }}</p>
 
       <div
         v-for="(gift, i) in store.items"
         v-else
         :key="gift.id"
         v-reveal="{ delay: i * 90 }"
-        class="rounded-2xl border border-gold-soft/40 bg-ivory p-6 text-center shadow-soft"
+        class="rounded-2xl border border-gold-soft/40 surface p-6 text-center shadow-soft"
       >
         <p class="eyebrow text-[0.6rem]">{{ typeLabel[gift.type] || gift.type }}</p>
 
@@ -61,7 +61,7 @@ async function copyNumber(gift) {
 
         <p class="mt-3 font-display text-2xl text-ink-soft">{{ gift.provider_name }}</p>
         <p v-if="gift.account_number" class="mt-1 font-sans text-lg tracking-wider text-ink">{{ gift.account_number }}</p>
-        <p v-if="gift.account_name" class="text-sm text-ink-muted">a.n. {{ gift.account_name }}</p>
+        <p v-if="gift.account_name" class="text-sm text-ink-muted">{{ texts.giftAccountPrefix }} {{ gift.account_name }}</p>
         <p v-if="gift.note" class="mt-3 text-xs italic text-ink-faint">{{ gift.note }}</p>
 
         <button
@@ -69,7 +69,7 @@ async function copyNumber(gift) {
           class="mt-4 inline-flex items-center gap-1.5 rounded-full border border-gold/60 px-4 py-1.5 text-[0.7rem] uppercase tracking-[0.15em] text-gold-deep transition hover:bg-gold/10"
           @click="copyNumber(gift)"
         >
-          {{ copied === gift.id ? 'Tersalin' : 'Salin Nomor' }}
+          {{ copied === gift.id ? texts.copied : texts.copyNumber }}
         </button>
       </div>
     </div>

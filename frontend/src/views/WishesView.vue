@@ -6,7 +6,7 @@ import SectionHeading from '@/components/ui/SectionHeading.vue';
 import SkeletonLine from '@/components/ui/SkeletonLine.vue';
 import ErrorState from '@/components/ui/ErrorState.vue';
 import Monogram from '@/components/ui/Monogram.vue';
-import { texts } from '@/config';
+import { texts, t } from '@/config';
 
 const PER_PAGE = 7;
 const items = ref([]);
@@ -27,7 +27,7 @@ async function load(p = 1) {
     page.value = p;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (e) {
-    error.value = e?.response?.data?.message || 'Gagal memuat ucapan.';
+    error.value = texts.loadError;
   } finally {
     loading.value = false;
   }
@@ -49,12 +49,12 @@ onMounted(() => load(1));
         <SectionHeading :eyebrow="texts.wishesEyebrow" :title="texts.wishesAllTitle" />
       </div>
       <p v-if="meta" class="mt-3 text-center text-sm text-ink-muted">
-        Total {{ meta.total }} ucapan &amp; doa
+        {{ t('wishesTotal', { n: meta.total }) }}
       </p>
 
       <!-- Loading -->
       <div v-if="loading" class="mt-10 space-y-4">
-        <div v-for="i in 5" :key="i" class="rounded-2xl bg-cream p-5">
+        <div v-for="i in 5" :key="i" class="rounded-2xl surface p-5">
           <SkeletonLine width="35%" height="0.9rem" />
           <div class="mt-3 space-y-2"><SkeletonLine /><SkeletonLine width="80%" /></div>
         </div>
@@ -63,7 +63,7 @@ onMounted(() => load(1));
       <ErrorState v-else-if="error" :message="error" @retry="load(page)" class="mt-10" />
 
       <p v-else-if="!items.length" class="mt-10 text-center text-sm text-ink-muted">
-        Belum ada ucapan.
+        {{ texts.wishesAllEmpty }}
       </p>
 
       <!-- List -->
@@ -72,7 +72,7 @@ onMounted(() => load(1));
           v-for="(wish, i) in items"
           :key="wish.id"
           v-reveal="{ delay: (i % 7) * 50 }"
-          class="rounded-2xl border border-shell/70 bg-cream p-5"
+          class="rounded-2xl border border-shell/70 surface p-5"
         >
           <div class="flex items-baseline justify-between gap-3">
             <p class="font-display text-lg text-ink-soft">{{ wish.guest_name }}</p>
@@ -88,9 +88,9 @@ onMounted(() => load(1));
       <!-- Pagination -->
       <div v-if="!loading && totalPages > 1" class="mt-10 flex items-center justify-center gap-2">
         <button
-          class="grid h-9 w-9 place-items-center rounded-full border border-shell bg-ivory text-gold-deep transition hover:bg-gold/10 disabled:opacity-40"
+          class="grid h-9 w-9 place-items-center rounded-full border border-shell surface text-gold-deep transition hover:bg-gold/10 disabled:opacity-40"
           :disabled="page === 1"
-          aria-label="Sebelumnya"
+          :aria-label="texts.ariaPrevPage"
           @click="goto(page - 1)"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
@@ -100,16 +100,16 @@ onMounted(() => load(1));
           v-for="p in totalPages"
           :key="p"
           class="h-9 min-w-9 rounded-full px-3 text-sm transition"
-          :class="p === page ? 'bg-gradient-to-br from-gold-soft to-gold-deep text-white shadow-gold' : 'border border-shell bg-ivory text-ink-muted hover:bg-gold/10'"
+          :class="p === page ? 'btn-solid' : 'border border-shell bg-ivory text-ink-muted hover:bg-gold/10'"
           @click="goto(p)"
         >
           {{ p }}
         </button>
 
         <button
-          class="grid h-9 w-9 place-items-center rounded-full border border-shell bg-ivory text-gold-deep transition hover:bg-gold/10 disabled:opacity-40"
+          class="grid h-9 w-9 place-items-center rounded-full border border-shell surface text-gold-deep transition hover:bg-gold/10 disabled:opacity-40"
           :disabled="page === totalPages"
-          aria-label="Berikutnya"
+          :aria-label="texts.ariaNextPage"
           @click="goto(page + 1)"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
@@ -119,7 +119,7 @@ onMounted(() => load(1));
       <!-- Back -->
       <div class="mt-12 text-center">
         <RouterLink to="/" class="text-xs uppercase tracking-[0.2em] text-gold-deep underline">
-          Kembali ke Beranda
+          {{ texts.backHome }}
         </RouterLink>
       </div>
     </div>

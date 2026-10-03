@@ -1,12 +1,15 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { useGalleryStore } from '@/stores/gallery.js';
-import { site, texts } from '@/config';
+import { site, texts, t, layout } from '@/config';
 import SectionHeading from '@/components/ui/SectionHeading.vue';
 import SkeletonCard from '@/components/ui/SkeletonCard.vue';
 import ErrorState from '@/components/ui/ErrorState.vue';
 
 const store = useGalleryStore();
+// Rasio bingkai foto (layout.galleryAspect). Kelas ditulis lengkap agar terbaca Tailwind.
+const ASPECT = { '4/3': 'aspect-[4/3]', '4/5': 'aspect-[4/5]', '3/4': 'aspect-[3/4]', '1/1': 'aspect-square' };
+const aspect = ASPECT[layout.galleryAspect] || ASPECT['4/3'];
 const track = ref(null);
 const active = ref(0);
 
@@ -37,7 +40,7 @@ function onScroll() {
 
     <div class="mt-10">
       <template v-if="store.loading">
-        <SkeletonCard aspect="aspect-[4/3]" />
+        <SkeletonCard :aspect="aspect" />
       </template>
 
       <ErrorState v-else-if="store.error" :message="store.error" @retry="store.fetch({}, true)" />
@@ -61,7 +64,8 @@ function onScroll() {
               :src="photo.image_url"
               :alt="photo.alt_text || photo.caption || `Foto ${site.baby.nickname}`"
               loading="lazy"
-              class="aspect-[4/3] h-full w-full object-cover"
+              :class="aspect"
+              class="h-full w-full object-cover object-[50%_30%]"
             />
             <figcaption
               v-if="photo.caption"
@@ -75,13 +79,13 @@ function onScroll() {
         <!-- controls -->
         <button
           v-if="count > 1" class="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ivory/90 text-gold-deep shadow-soft backdrop-blur transition hover:scale-105"
-          aria-label="Foto sebelumnya" @click="prev"
+          :aria-label="texts.ariaPrevPhoto" @click="prev"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg>
         </button>
         <button
           v-if="count > 1" class="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ivory/90 text-gold-deep shadow-soft backdrop-blur transition hover:scale-105"
-          aria-label="Foto berikutnya" @click="next"
+          :aria-label="texts.ariaNextPhoto" @click="next"
         >
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
         </button>
@@ -92,7 +96,7 @@ function onScroll() {
             v-for="(photo, i) in store.items" :key="photo.id"
             class="h-2 rounded-full transition-all"
             :class="i === active ? 'w-6 bg-gold' : 'w-2 bg-shell'"
-            :aria-label="`Ke foto ${i + 1}`"
+            :aria-label="t('ariaGoToPhoto', { i: i + 1 })"
             @click="scrollToIndex(i)"
           ></button>
         </div>

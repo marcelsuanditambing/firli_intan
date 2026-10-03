@@ -1,11 +1,51 @@
-# Template Website Pengumuman Kelahiran 👶
+# Website Kelahiran Firli 👶
 
-Template siap pakai berbasis website **Filo** — pengumuman kelahiran bergaya
-undangan digital premium, *mobile-first*, lengkap dengan hitung mundur/usia,
-timeline kehamilan, galeri, peta, ucapan & doa, statistik pengunjung, musik
-latar, dark mode, dan preview link WhatsApp.
+**Fasabbihka Firliandra Tabrani** — https://firli.cels.site
 
-**Untuk klien baru, Anda hanya mengisi satu file: [`site.config.js`](site.config.js).**
+Dibangun dari template website Filo: satu halaman gulir berbahasa Inggris,
+tema navy · silver · putih, lagu *Close to You* (The Carpenters).
+Semua konten ada di [`site.config.js`](site.config.js).
+
+## Status sekarang: mode penantian
+
+Situs menghitung mundur ke HPL **14 Oktober 2026** dan memakai teks versi
+"menanti". Teks asli dari Robby & Intan (versi "sudah lahir") sudah tersimpan
+di config dan tampil otomatis setelah status diganti.
+
+### Aset
+
+| Aset | Status | Di `site.config.js` |
+|---|---|---|
+| Foto Mom & Dad berdua | ✅ `/images/mom-dad.jpg` | `layout.storyPhoto` |
+| Foto Robby & Intan (galeri sementara) | ✅ `/images/robby.jpg`, `/images/intan.jpg` | `gallery` |
+| Lagu Close to You | ✅ `/music/close-to-you.mp3` | `music.file` |
+| Foto Firli (persegi) | ⏳ setelah lahir | `baby.profilePhoto` |
+| Foto galeri Firli | ⏳ setelah lahir | `gallery` |
+| Foto dokter | opsional | `doctors[0].photo` |
+
+Foto baru dikompres dulu (≤1600 px, metadata dihapus):
+
+```bash
+python3 scripts/optimize-images.py ~/Downloads/IMG_1234.jpg --name firli-01
+# -> frontend/public/images/firli-01.jpg (file di Downloads tidak diubah)
+```
+
+### Setelah Firli lahir
+
+1. Di `site.config.js`: `baby.status: 'born'`, isi `birth.date` (tanggal asli),
+   `time`, `weightGrams`, `lengthCm`, `profilePhoto`, dan `gallery`.
+2. Jalankan `./scripts/sync-content.sh` di server.
+
+Semua teks berbentuk `{ expecting, born }` langsung berganti ke versi "born";
+ucapan pengunjung dan statistik tidak terhapus.
+
+---
+
+# Template Website Pengumuman Kelahiran
+
+Template berbasis website **Filo** — pengumuman kelahiran bergaya undangan
+digital premium, *mobile-first*. Untuk klien baru, cukup isi satu file:
+[`site.config.js`](site.config.js).
 
 | Layer      | Teknologi                                            |
 |------------|------------------------------------------------------|
@@ -83,20 +123,24 @@ Tidak perlu lagi menulis file migrasi SQL manual seperti di repo Filo.
 
 | Bagian | Isi |
 |---|---|
-| `site` | slug, URL, **tema warna** (`gold`, `rose`, `sage`, `sky`, `lavender`, atau warna hex sendiri), huruf monogram, **zona waktu** (WIB/WITA/WIT), teks footer |
-| `baby` | nama lengkap & panggilan, gender (menentukan kata "putra"/"putri"), tanggal/jam/berat/panjang/tempat lahir, kalimat sambutan, foto profil, makna nama |
-| `parents`, `doctors` | nama, panggilan, foto |
+| `site` | slug, URL, **bahasa** (`locale: 'id'` / `'en'`), **tema** (`gold`, `rose`, `sage`, `sky`, `lavender`, `navy`, atau objek warna sendiri — termasuk warna latar, teks, dan tombol), huruf monogram, **zona waktu**, teks footer |
+| `baby` | nama lengkap & panggilan, gender, **status** (`expecting` / `born` / `auto`), tanggal/jam/berat/panjang/tempat lahir, deskripsi, foto profil, makna nama (`{ part, meaning }` = kartu, `{ text }` = paragraf) |
+| `parents`, `doctors` | nama, panggilan, foto; dokter: `credentials` (gelar, baris kedua) dan bio beberapa paragraf |
 | `timeline`, `gallery` | momen kehamilan & foto galeri |
 | `music` | lagu latar (atau `null`) |
 | `location` | peta Google Maps + catatan |
 | `gifts` | rekening, e-wallet, QRIS |
-| `sections` | nyalakan/matikan tiap bagian halaman |
-| `texts` | ganti teks apa pun (daftar lengkap di [`scripts/lib/defaults.mjs`](scripts/lib/defaults.mjs)); bisa pakai `{nama}` dan `{anak}` |
+| `sections` | nyalakan/matikan tiap bagian, termasuk `nameStory` (makna nama sebagai bagian sendiri) |
+| `layout` | **urutan bagian** (`order`), kalimat splash di atas nama, nama panggilan di splash/footer, foto di pembuka, satu foto orang tua berdua |
+| `texts` | ganti teks apa pun (daftar lengkap per bahasa di [`scripts/lib/defaults.mjs`](scripts/lib/defaults.mjs)); bisa pakai `{nama}`, `{anak}`, dan bentuk `{ expecting, born }` |
 | `seo` | judul, deskripsi, gambar preview link |
 
 Fitur bawaan yang otomatis:
-- **Mode penantian** — bila tanggal lahir masih di masa depan, situs menampilkan
-  hitung mundur & "Rencana Kelahiran"; setelah lewat, berubah jadi penghitung usia.
+- **Mode penantian** — `baby.status: 'expecting'` menampilkan hitung mundur dan
+  teks versi menanti; bila HPL lewat sebelum status diganti, penghitung berhenti
+  di 0 dengan catatan "segera hadir" (tidak berpura-pura sudah lahir).
+  `'born'` = penghitung usia + teks versi lahir. `'auto'` = ikut tanggal (perilaku Filo).
+- Latar bagian bergantian otomatis mengikuti urutan, kartu selalu kontras dengan latarnya.
 - Data yang kosong (jam, berat, dokter, galeri, dst.) otomatis disembunyikan.
 - Ucapan langsung tampil, atau pakai moderasi dengan `WISH_AUTO_APPROVE=false`
   di `.env` (setujui lewat phpMyAdmin: tabel `greetings`, ubah `status` → `approved`).

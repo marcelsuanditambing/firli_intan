@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { useTimelineStore } from '@/stores/timeline.js';
 import { formatDate } from '@/utils/format.js';
-import { texts } from '@/config';
+import { texts, t } from '@/config';
 import SectionHeading from '@/components/ui/SectionHeading.vue';
 import SkeletonLine from '@/components/ui/SkeletonLine.vue';
 import ErrorState from '@/components/ui/ErrorState.vue';
@@ -12,7 +12,7 @@ onMounted(() => store.fetch());
 </script>
 
 <template>
-  <section id="timeline" class="bg-ivory px-6 py-20">
+  <section id="timeline" class="px-6 py-20">
     <SectionHeading :eyebrow="texts.timelineEyebrow" :title="texts.timelineTitle" />
 
     <div class="mx-auto mt-12 max-w-md">
@@ -37,11 +37,11 @@ onMounted(() => store.fetch());
           v-reveal="{ delay: i * 80 }"
           class="relative pb-9 last:pb-0"
         >
-          <span class="absolute -left-[2.15rem] top-1 grid h-7 w-7 place-items-center rounded-full border border-gold-soft bg-cream">
+          <span class="absolute -left-[2.15rem] top-1 grid h-7 w-7 place-items-center rounded-full border border-gold-soft surface">
             <span class="h-2 w-2 rounded-full bg-gold"></span>
           </span>
           <p v-if="item.event_date || item.week_number" class="eyebrow text-[0.6rem]">
-            <template v-if="item.week_number">Minggu {{ item.week_number }}</template>
+            <template v-if="item.week_number">{{ t('timelineWeek', { n: item.week_number }) }}</template>
             <template v-if="item.week_number && item.event_date"> · </template>
             <template v-if="item.event_date">{{ formatDate(item.event_date, { withDay: false }) }}</template>
           </p>

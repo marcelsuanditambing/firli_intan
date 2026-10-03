@@ -1,7 +1,39 @@
 /* Dibuat otomatis oleh scripts/generate.mjs dari site.config.js — JANGAN diedit manual. */
 :root {
-  --c-gold-soft: 224 200 150;
-  --c-gold: 201 168 106;
-  --c-gold-deep: 176 141 79;
-  --c-blush: 231 211 206;
+  --c-gold-soft: 205 211 220;
+  --c-gold: 163 172 186;
+  --c-gold-deep: 36 54 94;
+  --c-blush: 220 227 238;
+  --c-cream: 245 247 250;
+  --c-ivory: 255 255 255;
+  --c-sand: 230 235 242;
+  --c-shell: 221 227 235;
+  --c-ink: 52 64 90;
+  --c-ink-soft: 27 42 74;
+  --c-ink-muted: 102 112 138;
+  --c-ink-faint: 142 151 168;
+  --skeleton-a: #E6EBF2;
+  --skeleton-b: #F3F5F9;
+  --c-btn-from: 52 73 122;
+  --c-btn-to: 27 42 74;
+  --c-btn-text: 255 255 255;
+}
+:root.dark {
+  --c-gold-soft: 91 104 132;
+  --c-gold: 163 172 186;
+  --c-gold-deep: 195 202 213;
+  --c-blush: 34 49 79;
+  --c-cream: 14 22 38;
+  --c-ivory: 22 33 58;
+  --c-sand: 10 16 29;
+  --c-shell: 42 54 84;
+  --c-ink: 211 217 227;
+  --c-ink-soft: 230 234 240;
+  --c-ink-muted: 169 178 194;
+  --c-ink-faint: 124 135 156;
+  --skeleton-a: #16213A;
+  --skeleton-b: #22304F;
+  --c-btn-from: 213 218 226;
+  --c-btn-to: 163 172 186;
+  --c-btn-text: 27 42 74;
 }

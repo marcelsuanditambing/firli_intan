@@ -39,14 +39,14 @@ watch(visitors, (v) => { if (visitorsCounter.value === 0) visitorsCounter.value 
 </script>
 
 <template>
-  <section ref="root" class="bg-ivory px-6 py-16">
+  <section id="statistik" ref="root" class="px-6 py-16">
     <div class="mx-auto grid max-w-sm gap-6 text-center" :class="sections.wishes ? 'grid-cols-2' : 'grid-cols-1'">
       <div v-reveal>
-        <p class="font-display text-5xl font-semibold tabular-nums text-gold-deep">{{ visitorsCounter.value }}</p>
+        <p class="font-display text-5xl font-semibold tabular-nums lining-nums text-gold-deep">{{ visitorsCounter.value }}</p>
         <p class="mt-2 text-[0.65rem] uppercase tracking-[0.22em] text-ink-muted">{{ texts.statsVisitors }}</p>
       </div>
       <div v-if="sections.wishes" v-reveal="{ delay: 100 }">
-        <p class="font-display text-5xl font-semibold tabular-nums text-gold-deep">{{ wishesCounter.value }}</p>
+        <p class="font-display text-5xl font-semibold tabular-nums lining-nums text-gold-deep">{{ wishesCounter.value }}</p>
         <p class="mt-2 text-[0.65rem] uppercase tracking-[0.22em] text-ink-muted">{{ texts.statsWishes }}</p>
       </div>
     </div>
