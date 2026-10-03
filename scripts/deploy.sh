@@ -11,7 +11,7 @@ git pull --ff-only || echo "git pull dilewati (bukan repo git / tidak ada remote
 if command -v node >/dev/null 2>&1; then
   node scripts/generate.mjs
 else
-  docker run --rm -v "$PWD":/app -w /app node:20-alpine node scripts/generate.mjs
+  docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/app -w /app node:20-alpine node scripts/generate.mjs
 fi
 
 $COMPOSE up -d --build

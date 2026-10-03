@@ -28,7 +28,7 @@ export default {
     theme: 'navy', // navy · silver · putih
     monogram: 'F',
     timezone: { offset: '+07:00', label: 'WIB' },
-    footerCredit: 'Made with love by Cel',
+    footerCredit: 'Made with love by Uncle Andi',
   },
 
   // ---------------------------------------------------------------------------
@@ -47,6 +47,8 @@ export default {
       lengthCm: null, // mis. 49.5
       place: 'Mayapada Hospital Kuningan',
       city: null,
+      // Alamat resmi (mayapadahospital.com) — tampil di Birth Details + peta Google Maps
+      address: 'Jl. H. R. Rasuna Said Blok C Kav. 17, Karet Kuningan, Setiabudi, Jakarta Selatan 12940',
     },
 
     // Dipakai untuk deskripsi SEO/preview link.
@@ -95,7 +97,7 @@ export default {
     {
       fullName: 'dr. Darrell Fernando',
       credentials: 'Sp.OG, SubspFER, MRCOG, MM, MARS, FICS, Int.aff.RANZCOG',
-      photo: null, // mis. '/images/dokter.jpg' — tanpa foto tampil inisial "D"
+      photo: '/images/dokter.jpg',
       bio: {
         expecting: [
           'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.',
@@ -163,6 +165,7 @@ export default {
     heroPhoto: true, // Page 2: foto Firli bila profilePhoto diisi
     storyPhoto: '/images/mom-dad.jpg', // Page 4: foto Mom & Dad berdua
     galleryAspect: '4/5', // Page 7: bingkai portrait
+    birthMap: true, // Page 5: alamat + peta Mayapada Hospital Kuningan
     footerName: 'nickname', // Page 10: "Firli"
     order: ['nameStory', 'story', 'birthInfo', 'ageCounter', 'gallery', 'doctors', 'stats', 'wishes'],
   },

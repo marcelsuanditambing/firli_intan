@@ -2,7 +2,8 @@
 import { computed } from 'vue';
 import { useBabyStore } from '@/stores/baby.js';
 import { formatDate, formatTime, formatWeight, formatLength } from '@/utils/format.js';
-import { texts } from '@/config';
+import { site, texts, layout } from '@/config';
+import BaseButton from '@/components/ui/BaseButton.vue';
 import SectionHeading from '@/components/ui/SectionHeading.vue';
 import SkeletonLine from '@/components/ui/SkeletonLine.vue';
 
@@ -17,6 +18,15 @@ const facts = computed(() => [
   { icon: 'ruler', label: texts.birthLabelLength, value: formatLength(d.value.length_cm) },
   { icon: 'pin', label: texts.birthLabelPlace, value: [d.value.birth_place, d.value.birth_city].filter(Boolean).join(', ') },
 ].filter((f) => f.value));
+
+// Alamat lengkap tempat lahir + peta (site.config.js: baby.birth.address, layout.birthMap)
+const address = site.baby.birthAddress || '';
+const mapQuery = computed(() =>
+  [d.value.birth_place, address || d.value.birth_city].filter(Boolean).join(', ')
+);
+const showMap = computed(() => layout.birthMap && !!mapQuery.value);
+const mapsEmbed = computed(() => `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery.value)}&z=16&output=embed`);
+const mapsLink = computed(() => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery.value)}`);
 
 // Kartu tanpa pasangan (jumlah ganjil, mis. mode penantian) dibuat selebar penuh.
 const fullWidth = computed(() => {
@@ -51,8 +61,25 @@ const fullWidth = computed(() => {
         >
           <p class="eyebrow text-[0.6rem]">{{ f.label }}</p>
           <p class="mt-2 font-display text-xl text-ink-soft">{{ f.value }}</p>
+          <p v-if="f.icon === 'pin' && address" class="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-ink-muted">{{ address }}</p>
         </li>
       </ul>
+
+      <div v-if="!baby.loading && showMap" class="mt-6 text-center" v-reveal="{ delay: 120 }">
+        <div class="overflow-hidden rounded-2xl border border-shell shadow-soft">
+          <iframe
+            :src="mapsEmbed"
+            class="h-56 w-full"
+            style="border:0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            :title="texts.ariaMap"
+          ></iframe>
+        </div>
+        <a :href="mapsLink" target="_blank" rel="noopener" class="mt-6 inline-block">
+          <BaseButton variant="outline">{{ texts.mapsButton }}</BaseButton>
+        </a>
+      </div>
     </div>
   </section>
 </template>

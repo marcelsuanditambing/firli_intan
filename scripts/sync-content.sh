@@ -24,7 +24,7 @@ if command -v node >/dev/null 2>&1; then
   node scripts/generate.mjs
 else
   # Server tanpa Node.js: jalankan generator di container sementara
-  docker run --rm -v "$PWD":/app -w /app node:20-alpine node scripts/generate.mjs
+  docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/app -w /app node:20-alpine node scripts/generate.mjs
 fi
 
 echo "### 2/3 terapkan konten ke database"

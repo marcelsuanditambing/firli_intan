@@ -10,7 +10,7 @@ export default {
       "offset": "+07:00",
       "label": "WIB"
     },
-    "footerCredit": "Made with love by Cel",
+    "footerCredit": "Made with love by Uncle Andi",
     "themeColor": {
       "light": "#F5F7FA",
       "dark": "#0E1626"
@@ -25,6 +25,7 @@ export default {
     "status": "expecting",
     "mode": "expecting",
     "profilePhoto": null,
+    "birthAddress": "Jl. H. R. Rasuna Said Blok C Kav. 17, Karet Kuningan, Setiabudi, Jakarta Selatan 12940",
     "nameMeaning": [
       {
         "part": "Fasabbihka",
@@ -56,6 +57,7 @@ export default {
     "storyPhoto": "/images/mom-dad.jpg",
     "footerName": "nickname",
     "galleryAspect": "4/5",
+    "birthMap": true,
     "order": [
       "nameStory",
       "story",

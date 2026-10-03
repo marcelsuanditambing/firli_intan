@@ -261,6 +261,7 @@ const baby = {
     weightGrams: blank(pick(birthRaw.weightGrams)) ? null : Number(pick(birthRaw.weightGrams)),
     lengthCm: blank(pick(birthRaw.lengthCm)) ? null : Number(pick(birthRaw.lengthCm)),
     place: str(birthRaw.place),
+    address: str(birthRaw.address), // alamat lengkap tempat lahir (tampil + peta), tidak disimpan di DB
     city: str(birthRaw.city),
   },
 };
@@ -412,6 +413,8 @@ for (const k of Object.keys(raw.layout || {})) {
 if (!['full', 'nickname'].includes(layout.splashName)) err('layout.splashName: isi "full" atau "nickname"');
 if (!['full', 'nickname'].includes(layout.footerName)) err('layout.footerName: isi "full" atau "nickname"');
 if (!['4/3', '4/5', '3/4', '1/1'].includes(layout.galleryAspect)) err('layout.galleryAspect: isi "4/3", "4/5", "3/4", atau "1/1"');
+layout.birthMap = !!layout.birthMap;
+if (layout.birthMap && !str(birthRaw.address) && !str(birthRaw.place)) warn('layout.birthMap = true tetapi baby.birth.place/address kosong -> peta tidak tampil.');
 layout.storyPhoto = asset(layout.storyPhoto, 'layout.storyPhoto');
 layout.splashTextFirst = !!layout.splashTextFirst;
 if (!Array.isArray(layout.order)) {
@@ -609,6 +612,7 @@ const frontendConfig = {
     status: statusCfg, // 'auto' | 'expecting' | 'born'
     mode, // mode saat generate
     profilePhoto: baby.profilePhoto,
+    birthAddress: baby.birth.address,
     nameMeaning: baby.nameMeaning,
   },
   location,
