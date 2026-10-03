@@ -28,7 +28,7 @@ export default {
     theme: 'navy', // navy · silver · putih
     monogram: 'F',
     timezone: { offset: '+07:00', label: 'WIB' },
-    footerCredit: 'Made with love by Uncle Andi',
+    footerCredit: 'Made with love by Uncle Andi Tambing',
   },
 
   // ---------------------------------------------------------------------------
