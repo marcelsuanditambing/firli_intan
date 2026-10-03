@@ -1,0 +1,12 @@
+{
+  "name": "baby-announcement-template",
+  "private": true,
+  "type": "module",
+  "description": "Template website pengumuman kelahiran (berbasis Filo). Isi site.config.js lalu jalankan npm run generate.",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "check": "node scripts/generate.mjs --check",
+    "og": "python3 scripts/make-og-image.py"
+  },
+  "engines": { "node": ">=18" }
+}

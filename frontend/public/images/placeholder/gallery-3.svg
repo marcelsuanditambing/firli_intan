@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F1E7"/><stop offset="1" stop-color="#E6E4D3"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <rect x="300" y="215" width="200" height="150" rx="18" fill="none" stroke="#C9A86A" stroke-width="6"/>
+  <circle cx="352" cy="268" r="16" fill="#C9A86A"/>
+  <path d="M312 352l58-56 42 38 30-26 46 44" fill="none" stroke="#C9A86A" stroke-width="6" stroke-linejoin="round"/>
+  <text x="400" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#B08D4F">Galeri 3</text>
+  <text x="400" y="470" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="3" fill="#B3A899">GANTI DENGAN FOTO ASLI</text>
+</svg>

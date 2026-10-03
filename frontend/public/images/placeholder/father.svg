@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F1E7"/><stop offset="1" stop-color="#EFE3CF"/></linearGradient></defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <circle cx="300" cy="215" r="88" fill="none" stroke="#C9A86A" stroke-width="6"/>
+  <path d="M150 470c16-86 78-134 150-134s134 48 150 134" fill="none" stroke="#C9A86A" stroke-width="6" stroke-linecap="round"/>
+  <text x="300" y="535" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#B08D4F">Foto Ayah</text>
+</svg>

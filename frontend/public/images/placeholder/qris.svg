@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#fff"/>
+  <g fill="#4A4038">
+    <path d="M40 40h110v110H40zM60 60v70h70V60zM80 80h30v30H80z" fill-rule="evenodd"/>
+    <path d="M250 40h110v110H250zM270 60v70h70V60zM290 80h30v30h-30z" fill-rule="evenodd"/>
+    <path d="M40 250h110v110H40zM60 270v70h70v-70zM80 290h30v30H80z" fill-rule="evenodd"/>
+  </g>
+  <text x="275" y="285" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#B08D4F">CONTOH</text>
+  <text x="275" y="315" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#B08D4F">QRIS</text>
+</svg>

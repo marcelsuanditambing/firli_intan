@@ -1,0 +1,128 @@
+# =============================================================================
+# Website Pengumuman Kelahiran (template) — stack lokal / sederhana
+# frontend, backend, mariadb, phpmyadmin, nginx
+# APP_NAME (di .env) membuat nama container unik -> beberapa situs bisa
+# berjalan di satu server tanpa bentrok.
+# =============================================================================
+name: ${APP_NAME:-babysite}
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # MariaDB - Relational database
+  # ---------------------------------------------------------------------------
+  mariadb:
+    image: mariadb:11.4
+    container_name: ${APP_NAME:-babysite}_mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+      - ./docker/mariadb/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # phpMyAdmin - Database administration UI
+  # ---------------------------------------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: ${APP_NAME:-babysite}_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "127.0.0.1:${PMA_PORT:-8080}:80"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  # ---------------------------------------------------------------------------
+  # Backend - Node.js + Express REST API (MVC)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME:-babysite}_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${BACKEND_PORT:-3000}
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      IP_HASH_SALT: ${IP_HASH_SALT:-change_me_random_salt}
+      DEFAULT_BABY_SLUG: ${DEFAULT_BABY_SLUG:-}
+      WISH_AUTO_APPROVE: ${WISH_AUTO_APPROVE:-true}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:'+(process.env.PORT||3000)+'/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ---------------------------------------------------------------------------
+  # Frontend - Vue 3 build served by an internal Nginx
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    container_name: ${APP_NAME:-babysite}_frontend
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  # ---------------------------------------------------------------------------
+  # Nginx - Reverse proxy (entry point)
+  # ---------------------------------------------------------------------------
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME:-babysite}_nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app_network
+
+# =============================================================================
+# Networks & Volumes
+# =============================================================================
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mariadb_data:
+    driver: local

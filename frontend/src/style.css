@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Fallback aksen bila theme.generated.css belum dibuat (tema gold) */
+    --c-gold-soft: 224 200 150;
+    --c-gold: 201 168 106;
+    --c-gold-deep: 176 141 79;
+    --c-blush: 231 211 206;
+
+    --c-cream: 251 248 241;
+    --c-ivory: 254 252 248;
+    --c-sand: 243 236 223;
+    --c-shell: 239 231 216;
+    --c-ink: 74 64 56;
+    --c-ink-soft: 110 99 88;
+    --c-ink-muted: 138 126 114;
+    --c-ink-faint: 179 168 153;
+    --skeleton-a: #efe7d8;
+    --skeleton-b: #f7f1e7;
+  }
+  .dark {
+    --c-cream: 30 26 22;     /* page */
+    --c-ivory: 39 34 27;     /* raised surface */
+    --c-sand: 21 18 14;      /* outer backdrop */
+    --c-shell: 58 51 43;     /* hairlines */
+    --c-ink: 233 225 212;    /* body text */
+    --c-ink-soft: 243 236 223;
+    --c-ink-muted: 179 167 149;
+    --c-ink-faint: 131 120 102;
+    --skeleton-a: #2c2620;
+    --skeleton-b: #383029;
+  }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  h1, h2, h3 { @apply font-display text-ink-soft; }
+  ::selection { background: rgb(var(--c-gold-soft)); color: #4A4038; }
+}
+
+@layer components {
+  .eyebrow { @apply font-sans text-[0.7rem] uppercase tracking-eyebrow text-gold-deep; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-in { opacity: 1; transform: none; }
+
+  .skeleton {
+    @apply rounded-md animate-shimmer;
+    background-image: linear-gradient(100deg, var(--skeleton-a) 28%, var(--skeleton-b) 50%, var(--skeleton-a) 72%);
+    background-size: 200% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-floaty, .animate-nudge, .animate-sheen, .animate-shimmer { animation: none !important; }
+}
