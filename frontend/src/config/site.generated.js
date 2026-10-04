@@ -12,8 +12,8 @@ export default {
     },
     "footerCredit": "Made with love by Uncle Andi Tambing",
     "themeColor": {
-      "light": "#F5F7FA",
-      "dark": "#0E1626"
+      "light": "#F6F7F8",
+      "dark": "#141518"
     },
     "wishesPath": "/wishes"
   },

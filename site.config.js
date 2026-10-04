@@ -25,7 +25,7 @@ export default {
     slug: 'firli',
     url: 'https://firli.cels.site',
     locale: 'en', // seluruh situs berbahasa Inggris
-    theme: 'navy', // navy · silver · putih
+    theme: 'silver', // silver · putih  (sebelumnya 'navy' = navy · silver · putih)
     monogram: 'F',
     timezone: { offset: '+07:00', label: 'WIB' },
     footerCredit: 'Made with love by Uncle Andi Tambing',

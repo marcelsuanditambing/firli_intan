@@ -12,6 +12,8 @@ const name = computed(() =>
 const parents = computed(() => baby.familyParents);
 const year = new Date().getFullYear();
 const credit = site.site.footerCredit;
+// Kredit panjang ditaruh di baris sendiri agar tidak terpotong di tengah kata.
+const creditOwnLine = (credit || '').length > 24;
 </script>
 
 <template>
@@ -23,7 +25,8 @@ const credit = site.site.footerCredit;
     </p>
     <p class="mx-auto mt-6 max-w-xs text-sm leading-relaxed text-ink-muted">{{ texts.footerThanks }}</p>
     <p class="mt-8 text-[0.65rem] uppercase tracking-[0.25em] text-ink-faint">
-      &copy; {{ year }}<template v-if="credit"> · {{ credit }}</template>
+      &copy; {{ year }}<template v-if="credit && !creditOwnLine"> · {{ credit }}</template>
+      <span v-if="credit && creditOwnLine" class="mt-2 block">{{ credit }}</span>
     </p>
   </footer>
 </template>

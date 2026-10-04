@@ -39,6 +39,28 @@ export const PALETTES = {
   sage: { soft: '#CBD8C1', base: '#9FB38F', deep: '#6E8A5C', blush: '#E4EADB' }, // hijau sage
   sky: { soft: '#C3D8E8', base: '#8DB2CF', deep: '#5A84A6', blush: '#DCE8F1' }, // biru langit
   lavender: { soft: '#DCCFE8', base: '#B59ECC', deep: '#8A6CA8', blush: '#ECE3F2' }, // ungu lavender
+  // Silver · putih: latar putih, teks graphite (abu-abu gelap) agar terbaca,
+  // perak untuk garis/ornamen/tombol (tombol perak metalik dengan teks gelap).
+  silver: {
+    soft: '#D8DCE1', base: '#A7ADB5', deep: '#5F656D', blush: '#ECEFF2',
+    dark: { soft: '#4A4F57', base: '#A7ADB5', deep: '#C9CDD3', blush: '#24272C' },
+    neutrals: {
+      light: {
+        cream: '#F6F7F8', ivory: '#FFFFFF', sand: '#E9EBEE', shell: '#DFE2E6',
+        ink: '#3A3F46', inkSoft: '#2A2E34', inkMuted: '#686D75', inkFaint: '#8D9299',
+        skeletonA: '#E9EBEE', skeletonB: '#F4F5F7',
+      },
+      dark: {
+        cream: '#141518', ivory: '#1D1F23', sand: '#0E0F11', shell: '#2E3136',
+        ink: '#D9DCE0', inkSoft: '#EEF0F2', inkMuted: '#A3A8AF', inkFaint: '#747980',
+        skeletonA: '#1D1F23', skeletonB: '#2A2D32',
+      },
+    },
+    button: {
+      light: { from: '#EEF0F3', to: '#B4BAC2', text: '#2A2E34' },
+      dark: { from: '#EEF0F3', to: '#A7ADB5', text: '#1D1F23' },
+    },
+  },
   // Navy · silver · putih: navy untuk teks & aksen, perak untuk garis/ornamen.
   navy: {
     soft: '#CDD3DC', base: '#A3ACBA', deep: '#24365E', blush: '#DCE3EE',
