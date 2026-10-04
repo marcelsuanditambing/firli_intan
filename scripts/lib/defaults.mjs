@@ -17,6 +17,8 @@
 //   neutrals : { light: {...}, dark: {...} } warna latar & teks (tema Filo
 //              memakai krem; tema navy memakai putih & navy)
 //   button   : { light: { from, to, text }, dark: { from, to, text } }
+//   patternAlt : warna kedua pola latar (layout.decor.patternAlt) untuk bagian
+//              berlatar putih; bawaan = warna `deep`. Bisa juga diisi di `dark`.
 // Isi site.theme di site.config.js dengan nama tema, atau objek dengan
 // struktur yang sama untuk warna kustom.
 // ---------------------------------------------------------------------------
@@ -43,7 +45,8 @@ export const PALETTES = {
   // perak untuk garis/ornamen/tombol (tombol perak metalik dengan teks gelap).
   silver: {
     soft: '#D8DCE1', base: '#A7ADB5', deep: '#5F656D', blush: '#ECEFF2',
-    dark: { soft: '#4A4F57', base: '#A7ADB5', deep: '#C9CDD3', blush: '#24272C' },
+    patternAlt: '#86A0C4', // biru mutiara untuk pola di bagian putih
+    dark: { soft: '#4A4F57', base: '#A7ADB5', deep: '#C9CDD3', blush: '#24272C', patternAlt: '#7D94B8' },
     neutrals: {
       light: {
         cream: '#F6F7F8', ivory: '#FFFFFF', sand: '#E9EBEE', shell: '#DFE2E6',
@@ -126,6 +129,7 @@ export const DEFAULT_LAYOUT = {
     pattern: 'none', // 'geometric' = pola bintang delapan garis tipis (warna mengikuti tema) | 'none'
     heroFrame: 'none', // 'arch' = bingkai lengkung di layar pembuka & bagian pembuka | 'none'
     foilName: false, // true = efek kilau (foil) pada nama di layar pembuka & bagian pembuka
+    patternAlt: false, // true = bagian berlatar putih juga diberi pola yang sama, warna kedua (tema: patternAlt)
   },
   // Urutan bagian di bawah pembuka (hero selalu pertama, footer selalu terakhir).
   // Bagian yang dimatikan di `sections` otomatis dilewati.

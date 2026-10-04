@@ -61,7 +61,8 @@ export default {
     "decor": {
       "pattern": "geometric",
       "heroFrame": "arch",
-      "foilName": true
+      "foilName": true,
+      "patternAlt": true
     },
     "order": [
       "nameStory",

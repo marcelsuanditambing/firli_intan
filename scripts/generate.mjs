@@ -226,15 +226,17 @@ const neutrals = {
   light: { ...NEUTRALS_WARM.light, ...(palette.neutrals?.light || {}) },
   dark: { ...NEUTRALS_WARM.dark, ...(palette.neutrals?.dark || {}) },
 };
+palette = { patternAlt: palette.deep, ...palette };
 const accentDark = { ...palette, ...(palette.dark || {}) };
+if (!palette.dark?.patternAlt && palette.dark?.deep) accentDark.patternAlt = palette.dark.deep;
 const button = {
   light: { from: palette.soft, to: palette.deep, text: '#FFFFFF', ...(palette.button?.light || {}) },
   dark: { from: accentDark.soft, to: accentDark.deep, text: '#FFFFFF', ...(palette.button?.dark || {}) },
 };
 // Validate every colour
 const colourChecks = [
-  ...['soft', 'base', 'deep', 'blush'].map((k) => [`site.theme.${k}`, palette[k]]),
-  ...['soft', 'base', 'deep', 'blush'].map((k) => [`site.theme.dark.${k}`, accentDark[k]]),
+  ...['soft', 'base', 'deep', 'blush', 'patternAlt'].map((k) => [`site.theme.${k}`, palette[k]]),
+  ...['soft', 'base', 'deep', 'blush', 'patternAlt'].map((k) => [`site.theme.dark.${k}`, accentDark[k]]),
   ...NEUTRAL_KEYS.flatMap((k) => [
     [`site.theme.neutrals.light.${k}`, neutrals.light[k]],
     [`site.theme.neutrals.dark.${k}`, neutrals.dark[k]],
@@ -421,6 +423,8 @@ layout.decor = { ...DEFAULT_LAYOUT.decor, ...(raw.layout?.decor || {}) };
 if (!['none', 'geometric'].includes(layout.decor.pattern)) err('layout.decor.pattern: isi "geometric" atau "none"');
 if (!['none', 'arch'].includes(layout.decor.heroFrame)) err('layout.decor.heroFrame: isi "arch" atau "none"');
 layout.decor.foilName = !!layout.decor.foilName;
+layout.decor.patternAlt = !!layout.decor.patternAlt;
+if (layout.decor.patternAlt && layout.decor.pattern === 'none') warn('layout.decor.patternAlt = true tetapi decor.pattern = "none" -> tidak ada pola.');
 if (layout.birthMap && !str(birthRaw.address) && !str(birthRaw.place)) warn('layout.birthMap = true tetapi baby.birth.place/address kosong -> peta tidak tampil.');
 layout.storyPhoto = asset(layout.storyPhoto, 'layout.storyPhoto');
 layout.splashTextFirst = !!layout.splashTextFirst;
@@ -645,6 +649,7 @@ function themeBlock(selector, accent, neu, btn) {
     `  --c-gold: ${hexToRgbTriplet(accent.base)};`,
     `  --c-gold-deep: ${hexToRgbTriplet(accent.deep)};`,
     `  --c-blush: ${hexToRgbTriplet(accent.blush)};`,
+    `  --c-pattern-alt: ${hexToRgbTriplet(accent.patternAlt)};`,
     ...Object.entries(NEUTRAL_VAR).map(([k, v]) => `  ${v}: ${hexToRgbTriplet(neu[k])};`),
     `  --skeleton-a: ${neu.skeletonA};`,
     `  --skeleton-b: ${neu.skeletonB};`,

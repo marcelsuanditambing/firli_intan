@@ -66,7 +66,7 @@ const fullWidth = computed(() => {
       </ul>
 
       <div v-if="!baby.loading && showMap" class="mt-6 text-center" v-reveal="{ delay: 120 }">
-        <div class="overflow-hidden rounded-2xl border border-shell shadow-soft">
+        <div class="overflow-hidden rounded-2xl border border-shell bg-sand shadow-soft">
           <iframe
             :src="mapsEmbed"
             class="h-56 w-full"

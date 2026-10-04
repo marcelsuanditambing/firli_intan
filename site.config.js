@@ -168,9 +168,10 @@ export default {
     birthMap: true, // Page 5: alamat + peta Mayapada Hospital Kuningan
     // Dekorasi agar tema silver tidak polos:
     decor: {
-      pattern: 'geometric', // pola bintang delapan perak tipis (selang-seling dengan bagian putih)
+      pattern: 'geometric', // pola bintang delapan perak tipis
       heroFrame: 'arch', // bingkai lengkung di layar pembuka & Page 2
       foilName: true, // kilau perak pada nama FIRLI & nama lengkap
+      patternAlt: true, // bagian putih juga berpola, warna biru mutiara (selang-seling dengan pola perak)
     },
     footerName: 'nickname', // Page 10: "Firli"
     order: ['nameStory', 'story', 'birthInfo', 'ageCounter', 'gallery', 'doctors', 'stats', 'wishes'],

@@ -48,15 +48,21 @@ const visible = (layout.order || Object.keys(COMPONENTS)).filter((key) => {
 
 // Latar selang-seling otomatis (ivory / cream) mengikuti urutan, agar dua bagian
 // bersebelahan tidak berwarna sama. Statistik + ucapan sengaja satu warna.
-// Bila layout.decor.pattern aktif, bagian berlatar cream diberi pola tipis
-// (selang-seling dengan bagian putih polos).
-const PATTERN = layout.decor?.pattern === 'geometric' ? 'bg-pattern' : '';
-const tones = [];
+// Bila layout.decor.pattern aktif, bagian berlatar cream diberi pola tipis;
+// dengan decor.patternAlt bagian putih juga berpola, dalam warna kedua.
+const decor = layout.decor || {};
+const patterned = decor.pattern === 'geometric';
+const TONE = {
+  white: ['bg-ivory', patterned && decor.patternAlt && 'bg-pattern bg-pattern-alt'].filter(Boolean).join(' '),
+  cream: patterned ? 'bg-pattern' : '',
+};
+const toneKeys = [];
 visible.forEach((key, i) => {
-  const prev = tones[i - 1];
-  if (key === 'wishes' && visible[i - 1] === 'stats') tones.push(prev);
-  else tones.push(prev === 'bg-ivory' ? PATTERN : 'bg-ivory');
+  const prev = toneKeys[i - 1];
+  if (key === 'wishes' && visible[i - 1] === 'stats') toneKeys.push(prev);
+  else toneKeys.push(prev === 'white' ? 'cream' : 'white');
 });
+const tones = toneKeys.map((k) => TONE[k]);
 </script>
 
 <template>
