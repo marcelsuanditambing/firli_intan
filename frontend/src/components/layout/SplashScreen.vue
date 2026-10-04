@@ -18,14 +18,23 @@ const nameClass = computed(() => {
 });
 // layout.splashTextFirst: kalimat pembuka di atas nama
 const textFirst = !!layout.splashTextFirst;
+const decor = layout.decor || {};
+const arch = decor.heroFrame === 'arch';
 defineEmits(['open']);
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-cream px-8 py-10 text-center">
+  <div
+    class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-cream py-10 text-center"
+    :class="[arch ? 'px-5' : 'px-8', { 'bg-pattern': decor.pattern === 'geometric' }]"
+  >
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-blush/15 via-transparent to-gold-soft/10"></div>
 
-    <div class="relative flex max-w-sm flex-col items-center">
+    <div
+      class="relative flex flex-col items-center"
+      :class="arch ? 'arch-frame w-full max-w-[22rem] px-8 pb-12 pt-20' : 'max-w-sm'"
+    >
+      <span v-if="arch" class="arch-apex" aria-hidden="true">&#10022;</span>
       <div class="animate-floaty"><Monogram :size="104" /></div>
 
       <template v-if="textFirst">
@@ -34,12 +43,12 @@ defineEmits(['open']);
           {{ texts.splashIntro }}
         </p>
         <div class="mt-6 w-full"><SectionDivider /></div>
-        <h1 class="mt-5 font-display font-semibold leading-none text-ink-soft" :class="nameClass">{{ name }}</h1>
+        <h1 class="mt-5 font-display font-semibold leading-none text-ink-soft" :class="[nameClass, { 'text-foil foil-play': decor.foilName }]">{{ name }}</h1>
       </template>
 
       <template v-else>
         <p v-if="texts.splashEyebrow" class="mt-8 font-script text-2xl text-gold-deep">{{ texts.splashEyebrow }}</p>
-        <h1 class="font-display font-semibold text-ink-soft" :class="[nameClass, texts.splashEyebrow ? 'mt-2' : 'mt-8']">{{ name }}</h1>
+        <h1 class="font-display font-semibold text-ink-soft" :class="[nameClass, texts.splashEyebrow ? 'mt-2' : 'mt-8', { 'text-foil foil-play': decor.foilName }]">{{ name }}</h1>
         <div class="mt-6 w-full"><SectionDivider /></div>
         <p class="mt-8 max-w-xs text-sm leading-relaxed text-ink-muted">{{ texts.splashIntro }}</p>
       </template>

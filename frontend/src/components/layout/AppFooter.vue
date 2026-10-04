@@ -17,7 +17,7 @@ const creditOwnLine = (credit || '').length > 24;
 </script>
 
 <template>
-  <footer class="bg-cream px-6 py-16 text-center">
+  <footer class="bg-cream px-6 py-16 text-center" :class="{ 'bg-pattern': layout.decor?.pattern === 'geometric' }">
     <div class="flex justify-center" v-reveal><Monogram :size="72" /></div>
     <p class="mt-6 font-display text-3xl text-ink-soft">{{ name }}</p>
     <p v-if="parents.length" class="mt-2 font-script text-xl text-gold-deep">

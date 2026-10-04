@@ -201,6 +201,9 @@ function asset(path, where, { kind = 'image', required = false } = {}) {
     if (mb > limit) {
       warn(`${where}: ukuran ${mb.toFixed(1)} MB (> ${limit} MB). Kompres dulu agar situs cepat dibuka di HP.`);
     }
+    // Versi otomatis dari isi file: bila foto diganti dengan nama yang sama,
+    // alamatnya ikut berubah sehingga browser/CDN tidak menampilkan versi lama.
+    return `${p}?v=${createHash('sha1').update(readFileSync(file)).digest('hex').slice(0, 8)}`;
   }
   return p;
 }
@@ -414,6 +417,10 @@ if (!['full', 'nickname'].includes(layout.splashName)) err('layout.splashName: i
 if (!['full', 'nickname'].includes(layout.footerName)) err('layout.footerName: isi "full" atau "nickname"');
 if (!['4/3', '4/5', '3/4', '1/1'].includes(layout.galleryAspect)) err('layout.galleryAspect: isi "4/3", "4/5", "3/4", atau "1/1"');
 layout.birthMap = !!layout.birthMap;
+layout.decor = { ...DEFAULT_LAYOUT.decor, ...(raw.layout?.decor || {}) };
+if (!['none', 'geometric'].includes(layout.decor.pattern)) err('layout.decor.pattern: isi "geometric" atau "none"');
+if (!['none', 'arch'].includes(layout.decor.heroFrame)) err('layout.decor.heroFrame: isi "arch" atau "none"');
+layout.decor.foilName = !!layout.decor.foilName;
 if (layout.birthMap && !str(birthRaw.address) && !str(birthRaw.place)) warn('layout.birthMap = true tetapi baby.birth.place/address kosong -> peta tidak tampil.');
 layout.storyPhoto = asset(layout.storyPhoto, 'layout.storyPhoto');
 layout.splashTextFirst = !!layout.splashTextFirst;
@@ -465,7 +472,7 @@ const seo = {
   ogImage: asset(seoRaw.ogImage, 'seo.ogImage'),
 };
 if (seo.ogImage && seo.ogImage.startsWith('/')) {
-  const f = resolve(PUBLIC_DIR, `.${seo.ogImage}`);
+  const f = resolve(PUBLIC_DIR, `.${decodeURI(seo.ogImage.split('?')[0])}`);
   if (existsSync(f) && createHash('sha256').update(readFileSync(f)).digest('hex') === GENERIC_OG_SHA256) {
     warn('seo.ogImage masih gambar generik template. Buat versi bernama bayi: python3 scripts/make-og-image.py');
   }

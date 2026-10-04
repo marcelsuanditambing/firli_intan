@@ -48,11 +48,14 @@ const visible = (layout.order || Object.keys(COMPONENTS)).filter((key) => {
 
 // Latar selang-seling otomatis (ivory / cream) mengikuti urutan, agar dua bagian
 // bersebelahan tidak berwarna sama. Statistik + ucapan sengaja satu warna.
+// Bila layout.decor.pattern aktif, bagian berlatar cream diberi pola tipis
+// (selang-seling dengan bagian putih polos).
+const PATTERN = layout.decor?.pattern === 'geometric' ? 'bg-pattern' : '';
 const tones = [];
 visible.forEach((key, i) => {
   const prev = tones[i - 1];
   if (key === 'wishes' && visible[i - 1] === 'stats') tones.push(prev);
-  else tones.push(prev === 'bg-ivory' ? '' : 'bg-ivory');
+  else tones.push(prev === 'bg-ivory' ? PATTERN : 'bg-ivory');
 });
 </script>
 

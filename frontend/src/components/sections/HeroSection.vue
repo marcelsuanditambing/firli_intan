@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useBabyStore } from '@/stores/baby.js';
+import { useUiStore } from '@/stores/ui.js';
 import { useScrollTo } from '@/composables/useScrollTo.js';
 import { formatDate } from '@/utils/format.js';
 import { site, texts, sections, layout } from '@/config';
@@ -12,12 +13,17 @@ const name = computed(() => baby.data?.name || site.baby.fullName);
 const dateLabel = computed(() => (baby.data?.birth_date ? formatDate(baby.data.birth_date, { withDay: false }) : ''));
 const eyebrow = computed(() => (baby.isBorn ? texts.heroEyebrowBorn : texts.heroEyebrowWaiting));
 // Nama panjang diperkecil agar tetap rapi di layar HP.
-const nameSize = computed(() =>
-  name.value.length > 22 ? 'text-5xl sm:text-6xl' : 'text-6xl sm:text-7xl'
-);
+const nameSize = computed(() => {
+  if (layout.decor?.heroFrame === 'arch') return name.value.length > 22 ? 'text-[2.6rem] leading-[1.05]' : 'text-5xl';
+  return name.value.length > 22 ? 'text-5xl sm:text-6xl' : 'text-6xl sm:text-7xl';
+});
 // Kalimat pembuka pendek memakai huruf script; kalimat panjang memakai serif miring agar terbaca.
 const scriptIsLong = (texts.heroScript || '').length > 32;
 const photo = layout.heroPhoto ? site.baby.profilePhoto : null;
+// Dekorasi (layout.decor): pola latar, bingkai lengkung, kilau foil pada nama.
+const decor = layout.decor || {};
+const ui = useUiStore(); // kilau nama diputar setelah layar pembuka ditutup
+const arch = decor.heroFrame === 'arch';
 
 // Tombol "Geser" menuju bagian pertama yang aktif (mengikuti layout.order).
 const SECTION_ID = {
@@ -30,11 +36,17 @@ const firstSection = SECTION_ID[firstKey] || 'ucapan';
 </script>
 
 <template>
-  <section id="hero" class="relative flex min-h-[88vh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-20 text-center">
+  <section
+    id="hero"
+    class="relative flex min-h-[88vh] flex-col items-center justify-center overflow-hidden px-6 pb-28 text-center"
+    :class="[arch ? 'pt-14' : 'pt-20', { 'bg-pattern': decor.pattern === 'geometric' }]"
+  >
     <!-- ambient soft shapes -->
     <div class="pointer-events-none absolute -top-10 -left-10 h-44 w-44 rounded-full bg-gold-soft/20 blur-3xl animate-floaty"></div>
     <div class="pointer-events-none absolute bottom-10 -right-12 h-52 w-52 rounded-full bg-blush/30 blur-3xl animate-floaty" style="animation-delay: 1.5s"></div>
 
+    <div :class="arch ? 'arch-frame flex w-full max-w-[22rem] flex-col items-center px-7 pb-12 pt-24' : 'contents'">
+    <span v-if="arch" class="arch-apex" aria-hidden="true">&#10022;</span>
     <p
       v-if="texts.heroScript"
       class="max-w-xs text-gold-deep"
@@ -47,7 +59,7 @@ const firstSection = SECTION_ID[firstKey] || 'ucapan';
 
     <h1
       class="font-display font-semibold leading-none text-ink-soft"
-      :class="[nameSize, eyebrow ? 'mt-4' : 'mt-6']"
+      :class="[nameSize, eyebrow ? 'mt-4' : 'mt-6', { 'text-foil': decor.foilName, 'foil-play': decor.foilName && !ui.splashOpen }]"
       v-reveal="{ delay: 140 }"
     >
       {{ name }}
@@ -74,6 +86,7 @@ const firstSection = SECTION_ID[firstKey] || 'ucapan';
     <p v-if="texts.heroClosing" class="mt-8 max-w-xs text-[0.95rem] leading-relaxed text-ink-muted" v-reveal="{ delay: 320 }">
       {{ texts.heroClosing }}
     </p>
+    </div>
 
     <button
       class="group absolute bottom-8 flex flex-col items-center gap-1 text-ink-faint transition-colors hover:text-gold-deep"

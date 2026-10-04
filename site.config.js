@@ -166,6 +166,12 @@ export default {
     storyPhoto: '/images/mom-dad.jpg', // Page 4: foto Mom & Dad berdua
     galleryAspect: '4/5', // Page 7: bingkai portrait
     birthMap: true, // Page 5: alamat + peta Mayapada Hospital Kuningan
+    // Dekorasi agar tema silver tidak polos:
+    decor: {
+      pattern: 'geometric', // pola bintang delapan perak tipis (selang-seling dengan bagian putih)
+      heroFrame: 'arch', // bingkai lengkung di layar pembuka & Page 2
+      foilName: true, // kilau perak pada nama FIRLI & nama lengkap
+    },
     footerName: 'nickname', // Page 10: "Firli"
     order: ['nameStory', 'story', 'birthInfo', 'ageCounter', 'gallery', 'doctors', 'stats', 'wishes'],
   },

@@ -54,10 +54,15 @@ export default {
     "splashTextFirst": true,
     "splashName": "nickname",
     "heroPhoto": true,
-    "storyPhoto": "/images/mom-dad.jpg",
+    "storyPhoto": "/images/mom-dad.jpg?v=84ca6445",
     "footerName": "nickname",
     "galleryAspect": "4/5",
     "birthMap": true,
+    "decor": {
+      "pattern": "geometric",
+      "heroFrame": "arch",
+      "foilName": true
+    },
     "order": [
       "nameStory",
       "story",
@@ -197,6 +202,6 @@ export default {
   "seo": {
     "title": "Fasabbihka Firliandra Tabrani · Birth Announcement",
     "description": "With the grace of Allah, our little blessing is on his way.",
-    "ogImage": "/og-image.png"
+    "ogImage": "/og-image.png?v=ccdb6c00"
   }
 };

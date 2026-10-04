@@ -54,6 +54,70 @@
   /* Kartu/kolom: selalu kontras dengan latar bagiannya (latar bagian bergantian otomatis). */
   .surface { background-color: rgb(var(--c-ivory)); }
   .bg-ivory .surface { background-color: rgb(var(--c-cream)); }
+  /* ---- Dekorasi latar (layout.decor di site.config.js) ---------------------- */
+  /* Pola bintang delapan: garis tipis, warnanya mengikuti tema lewat mask. */
+  .bg-pattern { position: relative; isolation: isolate; }
+  .bg-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: rgb(var(--c-gold) / var(--pattern-alpha, 0.26));
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cg fill=%22none%22 stroke=%22%23000%22 stroke-width=%220.8%22%3E%3Crect x=%2220%22 y=%2220%22 width=%2220%22 height=%2220%22/%3E%3Cpath d=%22M30 15.86 44.14 30 30 44.14 15.86 30Z%22/%3E%3Cpath d=%22M30 0v15.86M30 44.14V60M0 30h15.86M44.14 30H60%22/%3E%3Cpath d=%22M0 8 8 0M52 0l8 8M60 52l-8 8M8 60 0 52%22/%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%223.2%22/%3E%3C/g%3E%3C/svg%3E") repeat center top / 60px 60px;
+    mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cg fill=%22none%22 stroke=%22%23000%22 stroke-width=%220.8%22%3E%3Crect x=%2220%22 y=%2220%22 width=%2220%22 height=%2220%22/%3E%3Cpath d=%22M30 15.86 44.14 30 30 44.14 15.86 30Z%22/%3E%3Cpath d=%22M30 0v15.86M30 44.14V60M0 30h15.86M44.14 30H60%22/%3E%3Cpath d=%22M0 8 8 0M52 0l8 8M60 52l-8 8M8 60 0 52%22/%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%223.2%22/%3E%3C/g%3E%3C/svg%3E") repeat center top / 60px 60px;
+  }
+  .dark .bg-pattern::before { --pattern-alpha: 0.16; }
+
+  /* Bingkai lengkung: jendela putih mutiara dengan garis perak ganda. */
+  .arch-frame {
+    position: relative;
+    border: 1px solid rgb(var(--c-gold) / 0.75);
+    border-radius: 50% 50% 1.75rem 1.75rem / 10.5rem 10.5rem 1.75rem 1.75rem;
+    background-color: rgb(var(--c-ivory));
+    background-image: radial-gradient(90% 45% at 50% 0%, rgb(var(--c-blush) / 0.55), transparent 70%);
+    box-shadow: 0 30px 60px -40px rgb(var(--c-ink-soft) / 0.35);
+  }
+  .arch-frame::after {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px solid rgb(var(--c-gold-soft) / 0.9);
+    border-radius: 50% 50% 1.35rem 1.35rem / 10rem 10rem 1.35rem 1.35rem;
+    pointer-events: none;
+  }
+  .arch-apex {
+    position: absolute;
+    top: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
+    line-height: 1.4rem;
+    color: rgb(var(--c-gold));
+    background: rgb(var(--c-cream));
+    z-index: 1;
+  }
+
+  /* Nama dengan kilau foil (perak/emas mengikuti tema), satu kali saat dibuka. */
+  .text-foil {
+    background-image: linear-gradient(
+      100deg,
+      rgb(var(--c-ink-soft)) 0%, rgb(var(--c-ink-soft)) 38%,
+      rgb(var(--c-gold-deep)) 46%, rgb(var(--c-gold)) 50%, rgb(var(--c-gold-deep)) 54%,
+      rgb(var(--c-ink-soft)) 62%, rgb(var(--c-ink-soft)) 100%
+    );
+    background-size: 300% 100%;
+    background-position: 0% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent; /* tidak tertimpa kelas warna teks */
+  }
+  /* Kilau diputar sekali saat kelas ini ditambahkan. */
+  .text-foil.foil-play { animation: foil-sheen 2.6s cubic-bezier(0.45, 0, 0.2, 1) 0.35s 1 both; }
+  @keyframes foil-sheen { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
   .btn-solid { @apply bg-gradient-to-br from-btn-from to-btn-to text-btn-text shadow-gold; }
 
   .reveal {
@@ -75,4 +139,5 @@
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .animate-floaty, .animate-nudge, .animate-sheen, .animate-shimmer { animation: none !important; }
+  .text-foil.foil-play { animation: none; }
 }

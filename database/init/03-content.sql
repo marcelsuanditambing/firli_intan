@@ -22,7 +22,7 @@ DELETE FROM parents WHERE baby_id = @baby_id;
 INSERT INTO parents (baby_id, role, full_name, nickname, photo_url, bio, sort_order) VALUES
   (@baby_id, 'father', 'Robby', 'Robby', NULL, NULL, 1),
   (@baby_id, 'mother', 'Intan', 'Intan', NULL, NULL, 2),
-  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG, SubspFER, MRCOG, MM, MARS, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg', 'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, and the countless questions. We are so grateful that you will be the one to help bring Firliandra safely into our arms 🤍', 100);
+  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG, SubspFER, MRCOG, MM, MARS, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg?v=c1bd2b0b', 'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, and the countless questions. We are so grateful that you will be the one to help bring Firliandra safely into our arms 🤍', 100);
 
 -- Timeline kehamilan
 DELETE FROM pregnancy_timeline WHERE baby_id = @baby_id;
@@ -30,13 +30,13 @@ DELETE FROM pregnancy_timeline WHERE baby_id = @baby_id;
 -- Galeri foto
 DELETE FROM gallery_photos WHERE baby_id = @baby_id;
 INSERT INTO gallery_photos (baby_id, image_url, caption, alt_text, sort_order, is_featured, is_published) VALUES
-  (@baby_id, '/images/robby.jpg', NULL, 'Robby', 1, 1, 1),
-  (@baby_id, '/images/intan.jpg', NULL, 'Intan', 2, 0, 1);
+  (@baby_id, '/images/robby.jpg?v=6742c415', NULL, 'Robby', 1, 1, 1),
+  (@baby_id, '/images/intan.jpg?v=b0e727ab', NULL, 'Intan', 2, 0, 1);
 
 -- Musik latar
 DELETE FROM music_tracks WHERE baby_id = @baby_id;
 INSERT INTO music_tracks (baby_id, title, artist, file_url, is_active, sort_order) VALUES
-  (@baby_id, 'Close to You', 'The Carpenters', '/music/close-to-you.mp3', 1, 1);
+  (@baby_id, 'Close to You', 'The Carpenters', '/music/close-to-you.mp3?v=ee4a754c', 1, 1);
 
 -- Kado / QRIS
 DELETE FROM gifts WHERE baby_id = @baby_id;

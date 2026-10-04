@@ -121,6 +121,12 @@ export const DEFAULT_LAYOUT = {
   footerName: 'full', // 'full' | 'nickname'
   galleryAspect: '4/3', // bingkai galeri: '4/3' (landscape) | '4/5' / '3/4' (portrait) | '1/1'
   birthMap: false, // true = peta Google Maps tempat lahir di bagian Detail Kelahiran (butuh baby.birth.address)
+  // Dekorasi latar (semua bawaan mati -> tampilan Filo tidak berubah)
+  decor: {
+    pattern: 'none', // 'geometric' = pola bintang delapan garis tipis (warna mengikuti tema) | 'none'
+    heroFrame: 'none', // 'arch' = bingkai lengkung di layar pembuka & bagian pembuka | 'none'
+    foilName: false, // true = efek kilau (foil) pada nama di layar pembuka & bagian pembuka
+  },
   // Urutan bagian di bawah pembuka (hero selalu pertama, footer selalu terakhir).
   // Bagian yang dimatikan di `sections` otomatis dilewati.
   order: ['profile', 'nameStory', 'birthInfo', 'ageCounter', 'story', 'timeline', 'gallery', 'gift', 'location', 'doctors', 'stats', 'wishes', 'share'],
