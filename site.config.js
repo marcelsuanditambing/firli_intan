@@ -25,7 +25,8 @@ export default {
     slug: 'firli',
     url: 'https://firli.cels.site',
     locale: 'en', // seluruh situs berbahasa Inggris
-    theme: 'silver', // silver · putih  (sebelumnya 'navy' = navy · silver · putih)
+    theme: 'charcoal', // charcoal · abu · putih (#434343 · #767676 · #B2B2B2 · #E3E3E3)
+    //                     tema lain: 'silver' (perak · putih), 'navy' (navy · silver · putih)
     monogram: 'F',
     timezone: { offset: '+07:00', label: 'WIB' },
     footerCredit: 'Made with love by Uncle Andi Tambing',
@@ -166,12 +167,11 @@ export default {
     storyPhoto: '/images/mom-dad.jpg', // Page 4: foto Mom & Dad berdua
     galleryAspect: '4/5', // Page 7: bingkai portrait
     birthMap: true, // Page 5: alamat + peta Mayapada Hospital Kuningan
-    // Dekorasi agar tema silver tidak polos:
+    // Dekorasi: latar polos (tanpa pola), bingkai lengkung & kilau nama tetap.
     decor: {
-      pattern: 'geometric', // pola bintang delapan perak tipis
+      pattern: 'none', // 'none' = polos, bagian putih & abu #E3E3E3 berselang-seling | 'geometric' = pola bintang
       heroFrame: 'arch', // bingkai lengkung di layar pembuka & Page 2
-      foilName: true, // kilau perak pada nama FIRLI & nama lengkap
-      patternAlt: true, // bagian putih juga berpola, warna biru mutiara (selang-seling dengan pola perak)
+      foilName: true, // kilau pada nama FIRLI & nama lengkap
     },
     footerName: 'nickname', // Page 10: "Firli"
     order: ['nameStory', 'story', 'birthInfo', 'ageCounter', 'gallery', 'doctors', 'stats', 'wishes'],

@@ -12,8 +12,8 @@ export default {
     },
     "footerCredit": "Made with love by Uncle Andi Tambing",
     "themeColor": {
-      "light": "#F6F7F8",
-      "dark": "#141518"
+      "light": "#E3E3E3",
+      "dark": "#1F1F1F"
     },
     "wishesPath": "/wishes"
   },
@@ -59,10 +59,10 @@ export default {
     "galleryAspect": "4/5",
     "birthMap": true,
     "decor": {
-      "pattern": "geometric",
+      "pattern": "none",
       "heroFrame": "arch",
       "foilName": true,
-      "patternAlt": true
+      "patternAlt": false
     },
     "order": [
       "nameStory",
@@ -203,6 +203,6 @@ export default {
   "seo": {
     "title": "Fasabbihka Firliandra Tabrani · Birth Announcement",
     "description": "With the grace of Allah, our little blessing is on his way.",
-    "ogImage": "/og-image.png?v=ccdb6c00"
+    "ogImage": "/og-image.png?v=674feec6"
   }
 };

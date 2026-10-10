@@ -64,6 +64,30 @@ export const PALETTES = {
       dark: { from: '#EEF0F3', to: '#A7ADB5', text: '#1D1F23' },
     },
   },
+  // Charcoal · abu · putih (palet "winter"): charcoal #434343 untuk teks, nama &
+  // tombol; light gray #B2B2B2 untuk garis/bingkai; cloudy #E3E3E3 untuk latar
+  // bagian yang berselang-seling dengan putih. Teks keterangan memakai #636363
+  // (sedikit lebih gelap dari gray #767676) agar tetap terbaca di atas #E3E3E3.
+  charcoal: {
+    soft: '#D4D4D4', base: '#B2B2B2', deep: '#434343', blush: '#EFEFEF', patternAlt: '#767676',
+    dark: { soft: '#4A4A4A', base: '#767676', deep: '#E3E3E3', blush: '#303030', patternAlt: '#B2B2B2' },
+    neutrals: {
+      light: {
+        cream: '#E3E3E3', ivory: '#FFFFFF', sand: '#D6D6D6', shell: '#D0D0D0',
+        ink: '#434343', inkSoft: '#383838', inkMuted: '#636363', inkFaint: '#7E7E7E',
+        skeletonA: '#E3E3E3', skeletonB: '#F0F0F0',
+      },
+      dark: {
+        cream: '#1F1F1F', ivory: '#2B2B2B', sand: '#161616', shell: '#3D3D3D',
+        ink: '#E3E3E3', inkSoft: '#F2F2F2', inkMuted: '#B2B2B2', inkFaint: '#8A8A8A',
+        skeletonA: '#2B2B2B', skeletonB: '#363636',
+      },
+    },
+    button: {
+      light: { from: '#5A5A5A', to: '#383838', text: '#FFFFFF' },
+      dark: { from: '#F2F2F2', to: '#B2B2B2', text: '#2B2B2B' },
+    },
+  },
   // Navy · silver · putih: navy untuk teks & aksen, perak untuk garis/ornamen.
   navy: {
     soft: '#CDD3DC', base: '#A3ACBA', deep: '#24365E', blush: '#DCE3EE',
