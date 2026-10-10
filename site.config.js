@@ -97,7 +97,7 @@ export default {
   doctors: [
     {
       fullName: 'dr. Darrell Fernando',
-      credentials: 'Sp.OG, SubspFER, MRCOG, MM, MARS, FICS, Int.aff.RANZCOG',
+      credentials: 'Sp.OG, Subsp. FER, MRCOG, MM, MARS, FRSPH, FICS, Int.aff.RANZCOG',
       photo: '/images/dokter.jpg',
       bio: {
         expecting: [

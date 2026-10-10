@@ -22,7 +22,7 @@ DELETE FROM parents WHERE baby_id = @baby_id;
 INSERT INTO parents (baby_id, role, full_name, nickname, photo_url, bio, sort_order) VALUES
   (@baby_id, 'father', 'Robby', 'Robby', NULL, NULL, 1),
   (@baby_id, 'mother', 'Intan', 'Intan', NULL, NULL, 2),
-  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG, SubspFER, MRCOG, MM, MARS, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg?v=c1bd2b0b', 'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, and the countless questions. We are so grateful that you will be the one to help bring Firliandra safely into our arms 🤍', 100);
+  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG, Subsp. FER, MRCOG, MM, MARS, FRSPH, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg?v=c1bd2b0b', 'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, and the countless questions. We are so grateful that you will be the one to help bring Firliandra safely into our arms 🤍', 100);
 
 -- Timeline kehamilan
 DELETE FROM pregnancy_timeline WHERE baby_id = @baby_id;
