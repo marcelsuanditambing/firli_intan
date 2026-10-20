@@ -610,6 +610,7 @@ const frontendConfig = {
     url: site.url,
     locale: L,
     monogram,
+    monogramPhoto: asset(site.monogramPhoto, 'site.monogramPhoto'),
     timezone: site.timezone,
     footerCredit: txt(site.footerCredit) || '',
     themeColor: { light: neutrals.light.cream, dark: neutrals.dark.cream },

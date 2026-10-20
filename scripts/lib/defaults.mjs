@@ -119,6 +119,7 @@ export const DEFAULT_SITE = {
   locale: 'id', // 'id' | 'en'
   theme: 'gold',
   monogram: null,
+  monogramPhoto: null, // path foto bulat pengganti huruf monogram (layar pembuka, footer), mis. '/images/firli-avatar.jpg'
   timezone: { offset: '+07:00', label: 'WIB' },
   footerCredit: '',
 };

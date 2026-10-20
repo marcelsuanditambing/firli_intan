@@ -6,6 +6,7 @@ export default {
     "url": "https://firli.cels.site",
     "locale": "en",
     "monogram": "F",
+    "monogramPhoto": "/images/firli-avatar.jpg?v=57817903",
     "timezone": {
       "offset": "+07:00",
       "label": "WIB"

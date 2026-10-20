@@ -28,6 +28,7 @@ export default {
     theme: 'charcoal', // charcoal · abu · putih (#434343 · #767676 · #B2B2B2 · #E3E3E3)
     //                     tema lain: 'silver' (perak · putih), 'navy' (navy · silver · putih)
     monogram: 'F',
+    monogramPhoto: '/images/firli-avatar.jpg', // foto bulat Firli menggantikan huruf F (layar pembuka & footer)
     timezone: { offset: '+07:00', label: 'WIB' },
     footerCredit: 'Made with love by Uncle Andi Tambing',
   },
