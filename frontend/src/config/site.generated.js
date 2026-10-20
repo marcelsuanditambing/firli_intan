@@ -80,7 +80,7 @@ export default {
     "profile": false,
     "nameStory": true,
     "birthInfo": true,
-    "ageCounter": true,
+    "ageCounter": false,
     "story": true,
     "timeline": false,
     "gallery": true,
