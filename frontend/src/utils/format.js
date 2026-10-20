@@ -31,7 +31,7 @@ export function formatTime(value) {
 export function formatWeight(grams) {
   if (!grams && grams !== 0) return '';
   const str = (grams / 1000)
-    .toFixed(2) // dua desimal (3280 -> 3.28)
+    .toFixed(3) // tiga desimal agar tepat sampai gram (3325 -> 3.325, 3280 -> 3.28)
     .replace(/0+$/, '') // buang nol di belakang (3.20 -> 3.2)
     .replace(/\.$/, '') // buang titik jika tersisa (3.00 -> 3)
     .replace('.', DECIMAL);

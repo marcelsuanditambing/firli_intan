@@ -1,6 +1,6 @@
 -- =============================================================================
 -- Dibuat otomatis oleh scripts/generate.mjs dari site.config.js — JANGAN diedit manual.
--- Konten situs "firli" (mode: expecting). Dijalankan otomatis saat MariaDB
+-- Konten situs "firli" (mode: born). Dijalankan otomatis saat MariaDB
 -- pertama kali start, atau manual lewat ./scripts/sync-content.sh.
 -- Aman diulang: data bayi di-upsert, konten dihapus lalu diisi ulang.
 -- Tabel greetings (ucapan) & visitor_logs (statistik) tidak disentuh.
@@ -10,7 +10,7 @@ START TRANSACTION;
 
 -- Bayi (upsert berdasarkan slug)
 INSERT INTO babies (slug, name, birth_date, birth_time, weight_grams, length_cm, birth_place, birth_city, description)
-VALUES ('firli', 'Fasabbihka Firliandra Tabrani', '2026-10-14', NULL, NULL, NULL, 'Mayapada Hospital Kuningan', NULL, 'With the grace of Allah, our little blessing is on his way.')
+VALUES ('firli', 'Fasabbihka Firliandra Tabrani', '2026-10-18', NULL, 3325, 49, 'Mayapada Hospital Kuningan', NULL, 'With the grace of Allah, our little blessing has arrived.')
 ON DUPLICATE KEY UPDATE name = VALUES(name), birth_date = VALUES(birth_date), birth_time = VALUES(birth_time),
   weight_grams = VALUES(weight_grams), length_cm = VALUES(length_cm), birth_place = VALUES(birth_place),
   birth_city = VALUES(birth_city), description = VALUES(description);
@@ -22,7 +22,7 @@ DELETE FROM parents WHERE baby_id = @baby_id;
 INSERT INTO parents (baby_id, role, full_name, nickname, photo_url, bio, sort_order) VALUES
   (@baby_id, 'father', 'Robby', 'Robby', NULL, NULL, 1),
   (@baby_id, 'mother', 'Intan', 'Intan', NULL, NULL, 2),
-  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG., Subsp. FER, MRCOG, MM, MARS, FRSPH, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg?v=c1bd2b0b', 'The doctor who has cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we will finally meet our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, and the countless questions. We are so grateful that you will be the one to help bring Firliandra safely into our arms 🤍', 100);
+  (@baby_id, 'doctor', 'dr. Darrell Fernando, Sp.OG., Subsp. FER, MRCOG, MM, MARS, FRSPH, FICS, Int.aff.RANZCOG', NULL, '/images/dokter.jpg?v=c1bd2b0b', 'The doctor who cared for us through every step of this journey — from the very beginning of our pregnancy to the moment we finally met our little boy, Firliandra.\n\nThank you for being there through the worries, the little milestones, the countless questions, and finally, the most beautiful moment of all. We will always be grateful that you were the one who helped bring Firliandra safely into our arms 🤍', 100);
 
 -- Timeline kehamilan
 DELETE FROM pregnancy_timeline WHERE baby_id = @baby_id;
@@ -30,8 +30,11 @@ DELETE FROM pregnancy_timeline WHERE baby_id = @baby_id;
 -- Galeri foto
 DELETE FROM gallery_photos WHERE baby_id = @baby_id;
 INSERT INTO gallery_photos (baby_id, image_url, caption, alt_text, sort_order, is_featured, is_published) VALUES
-  (@baby_id, '/images/robby.jpg?v=6742c415', NULL, 'Robby', 1, 1, 1),
-  (@baby_id, '/images/intan.jpg?v=b0e727ab', NULL, 'Intan', 2, 0, 1);
+  (@baby_id, '/images/firli.jpg?v=7d0df3dd', NULL, 'Firli', 1, 1, 1),
+  (@baby_id, '/images/firli-tangan.jpg?v=ffd0c21e', NULL, 'Firli holding a finger', 2, 0, 1),
+  (@baby_id, '/images/firli-oma.jpg?v=b022f849', NULL, 'Firli with Oma', 3, 0, 1),
+  (@baby_id, '/images/dokter-firli.jpg?v=227a500f', NULL, 'Firli with dr. Darrell Fernando', 4, 0, 1),
+  (@baby_id, '/images/robby-dokter-intan-firli.jpg?v=6e470457', NULL, 'Robby, dr. Darrell Fernando, Intan and Firli', 5, 0, 1);
 
 -- Musik latar
 DELETE FROM music_tracks WHERE baby_id = @baby_id;

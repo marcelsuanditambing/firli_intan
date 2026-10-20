@@ -1,10 +1,13 @@
-File yang masih ada di repo tapi TIDAK dipakai lagi (boleh dihapus):
+File yang perlu DIHAPUS dari repo (tidak dipakai lagi):
 
+frontend/public/images/firli.png                      -> sudah dikompres jadi firli.jpg
+frontend/public/images/firli-tangan.png               -> sudah dikompres jadi firli-tangan.jpg
+frontend/public/images/firli-oma.png                  -> sudah dikompres jadi firli-oma.jpg
+frontend/public/images/dokter-firli.png               -> sudah dikompres jadi dokter-firli.jpg
+frontend/public/images/robby-dokter-intan-firli.png   -> sudah dikompres jadi robby-dokter-intan-firli.jpg
+frontend/public/images/1790996706193.jpg              -> sudah jadi mom-dad.jpg
 frontend/public/images/dr. Darrel Fernando (Formal Version).jpg   -> sudah jadi dokter.jpg
-frontend/public/images/dr. Darrell Fernando.png                   -> foto lama dokter
-frontend/public/images/1790996706193.jpg                          -> sudah jadi mom-dad.jpg
-frontend/public/images/FRD06985.jpg                               -> sudah jadi robby.jpg
-frontend/public/images/FRD07117.jpg                               -> sudah jadi intan.jpg
+frontend/public/images/dr. Darrell Fernando.png       -> foto lama dokter
 
-PowerShell (di folder repo):
-git rm "frontend/public/images/dr. Darrel Fernando (Formal Version).jpg" "frontend/public/images/dr. Darrell Fernando.png" frontend/public/images/1790996706193.jpg frontend/public/images/FRD06985.jpg frontend/public/images/FRD07117.jpg
+Perintah (PowerShell, di folder repo):
+git rm frontend/public/images/firli.png frontend/public/images/firli-tangan.png frontend/public/images/firli-oma.png frontend/public/images/dokter-firli.png frontend/public/images/robby-dokter-intan-firli.png frontend/public/images/1790996706193.jpg "frontend/public/images/dr. Darrel Fernando (Formal Version).jpg" "frontend/public/images/dr. Darrell Fernando.png"

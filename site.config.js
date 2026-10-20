@@ -39,17 +39,18 @@ export default {
     fullName: 'Fasabbihka Firliandra Tabrani',
     nickname: 'Firli',
     gender: 'male',
-    status: 'expecting', // 'expecting' (sebelum lahir) | 'born' (sudah lahir)
+    status: 'born', // 'expecting' (sebelum lahir) | 'born' (sudah lahir) — Firli lahir 18 Oktober 2026
 
     birth: {
-      date: '2026-10-14', // HPL — ganti dengan tanggal lahir asli setelah lahir
-      time: null, // mis. '08:42'
-      weightGrams: null, // mis. 3200 (gram)
-      lengthCm: null, // mis. 49.5
+      date: '2026-10-18', // tanggal lahir (HPL sebelumnya 2026-10-14)
+      time: null, // jam lahir tidak ditampilkan
+      weightGrams: 3325, // 3.325 gram
+      lengthCm: 49, // 49 cm
       place: 'Mayapada Hospital Kuningan',
       city: null,
-      // Alamat resmi (mayapadahospital.com) — tampil di Birth Details + peta Google Maps
-      address: 'Jl. H. R. Rasuna Said Blok C Kav. 17, Karet Kuningan, Setiabudi, Jakarta Selatan 12940',
+      // Alamat & peta tidak ditampilkan lagi (Firli sudah di rumah). Untuk menampilkan lagi:
+      // address: 'Jl. H. R. Rasuna Said Blok C Kav. 17, Karet Kuningan, Setiabudi, Jakarta Selatan 12940',
+      address: null,
     },
 
     // Dipakai untuk deskripsi SEO/preview link.
@@ -116,14 +117,16 @@ export default {
   timeline: [],
 
   // ---------------------------------------------------------------------------
-  // 5. GALERI — Page 7. Bingkai portrait 4:5 (layout.galleryAspect).
-  //    Sementara berisi foto Robby & Intan; tambahkan foto Firli setelah lahir:
-  //    { image: '/images/firli-01.jpg', caption: '' }
-  //    Kompres foto baru dulu: python3 scripts/optimize-images.py <file> --name firli-01
+  // 5. GALERI — Page 7. Bingkai portrait 3:4 (layout.galleryAspect).
+  //    Foto baru: kompres dulu -> python3 scripts/optimize-images.py <file> --name firli-06
+  //    lalu tambahkan { image: '/images/firli-06.jpg', alt: '...' }
   // ---------------------------------------------------------------------------
   gallery: [
-    { image: '/images/robby.jpg', alt: 'Robby' },
-    { image: '/images/intan.jpg', alt: 'Intan' },
+    { image: '/images/firli.jpg', alt: 'Firli' },
+    { image: '/images/firli-tangan.jpg', alt: 'Firli holding a finger' },
+    { image: '/images/firli-oma.jpg', alt: 'Firli with Oma' },
+    { image: '/images/dokter-firli.jpg', alt: 'Firli with dr. Darrell Fernando' },
+    { image: '/images/robby-dokter-intan-firli.jpg', alt: 'Robby, dr. Darrell Fernando, Intan and Firli' },
   ],
 
   // ---------------------------------------------------------------------------
@@ -165,8 +168,8 @@ export default {
     splashName: 'nickname', // Page 1: "FIRLI"
     heroPhoto: true, // Page 2: foto Firli bila profilePhoto diisi
     storyPhoto: '/images/mom-dad.jpg', // Page 4: foto Mom & Dad berdua
-    galleryAspect: '4/5', // Page 7: bingkai portrait
-    birthMap: true, // Page 5: alamat + peta Mayapada Hospital Kuningan
+    galleryAspect: '3/4', // Page 7: bingkai portrait tinggi (foto HP tidak terlalu terpotong)
+    birthMap: false, // Page 5: peta Google Maps tidak ditampilkan (Firli sudah di rumah)
     // Dekorasi: latar polos (tanpa pola), bingkai lengkung & kilau nama tetap.
     decor: {
       pattern: 'none', // 'none' = polos, bagian putih & abu #E3E3E3 berselang-seling | 'geometric' = pola bintang
