@@ -153,7 +153,7 @@ export default {
     nameStory: true, // Page 3
     story: true, // Page 4
     birthInfo: true, // Page 5
-    ageCounter: true, // Page 6
+    ageCounter: false, // Page 6
     timeline: false,
     gallery: true, // Page 7
     location: false,
