@@ -49,7 +49,6 @@ function siteDate(iso) {
 }
 const birthDateShort = baby.birth_date ? formatDate(baby.birth_date, { withDay: false }) : '';
 const madeOn = t('keepsakeMadeOn', { date: formatDate(siteDate(data?.generated_at || new Date().toISOString()), { withDay: false }) });
-const siteHost = String(site.site.url || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
 const wishesCount = wishes.length === 1 ? texts.keepsakeWishesCountOne : t('keepsakeWishesCount', { n: wishes.length });
 
 const nameItems = site.baby.nameMeaning || [];
@@ -433,7 +432,8 @@ onMounted(async () => {
           <p v-if="texts.footerThanks" class="k-text" style="margin-top: 6mm; max-width: 90mm">{{ texts.footerThanks }}</p>
           <div class="k-divider" style="margin-top: 7mm"><KStar /></div>
           <p v-if="site.site.footerCredit" class="k-label">{{ site.site.footerCredit }}</p>
-          <p class="k-label" style="margin-top: 1.5mm">{{ [siteHost, madeOn].filter(Boolean).join(' · ') }}</p>
+          <!-- Alamat website sengaja tidak dicantumkan: buku tetap berarti walau situs sudah tidak aktif. -->
+          <p class="k-label" style="margin-top: 1.5mm">{{ madeOn }}</p>
         </div>
       </div>
 
