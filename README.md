@@ -39,6 +39,19 @@ python3 scripts/optimize-images.py ~/Downloads/IMG_1234.jpg --name firli-01
 Semua teks berbentuk `{ expecting, born }` langsung berganti ke versi "born";
 ucapan pengunjung dan statistik tidak terhapus.
 
+### Buku Kenangan (PDF untuk Robby & Intan)
+
+Paling bawah di footer ada tulisan kecil **For Robby & Intan 🔒** → masukkan PIN →
+**Download the book (PDF)**. Server membuat buku A5 saat tombol diklik (cerita,
+makna nama, detail kelahiran, galeri, dokter, dan **semua ucapan terbaru**), jadi
+bisa diunduh ulang kapan saja.
+
+- PIN ada di file `.env` di server: `KEEPSAKE_PIN=...` — **tidak** ada di GitHub.
+- Ganti PIN: ubah `.env`, lalu `docker compose up -d backend`. Semua HP yang
+  sudah terbuka otomatis terkunci lagi.
+- Matikan: kosongkan `KEEPSAKE_PIN` (tautan di footer hilang).
+- Salah PIN 5× → dikunci 15 menit. HP yang berhasil membuka diingat 30 hari.
+
 ---
 
 # Template Website Pengumuman Kelahiran
@@ -132,8 +145,9 @@ Tidak perlu lagi menulis file migrasi SQL manual seperti di repo Filo.
 | `gifts` | rekening, e-wallet, QRIS |
 | `sections` | nyalakan/matikan tiap bagian, termasuk `nameStory` (makna nama sebagai bagian sendiri) |
 | `layout` | **urutan bagian** (`order`), kalimat splash di atas nama, nama panggilan di splash/footer, foto di pembuka, satu foto orang tua berdua |
-| `texts` | ganti teks apa pun (daftar lengkap per bahasa di [`scripts/lib/defaults.mjs`](scripts/lib/defaults.mjs)); bisa pakai `{nama}`, `{anak}`, dan bentuk `{ expecting, born }` |
+| `texts` | ganti teks apa pun (daftar lengkap per bahasa di [`scripts/lib/defaults.mjs`](scripts/lib/defaults.mjs)); bisa pakai `{nama}`, `{anak}`, `{orangTua}` (mis. "Robby & Intan"), dan bentuk `{ expecting, born }` |
 | `seo` | judul, deskripsi, gambar preview link |
+| `keepsake` | `enabled: true` = **Buku Kenangan** (PDF A5) untuk orang tua: tautan kecil di footer → PIN → unduh. PIN di `.env` (`KEEPSAKE_PIN`), tulisan tautan di `texts.keepsakeLink` (bawaan "Untuk {orangTua}") |
 
 Fitur bawaan yang otomatis:
 - **Mode penantian** — `baby.status: 'expecting'` menampilkan hitung mundur dan

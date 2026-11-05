@@ -27,6 +27,17 @@ const config = {
     // false = ucapan berstatus "pending", setujui manual lewat phpMyAdmin
     wishAutoApprove: String(process.env.WISH_AUTO_APPROVE ?? 'true').toLowerCase() !== 'false',
   },
+  // Buku Kenangan (PDF A5) untuk orang tua. Kosongkan KEEPSAKE_PIN = fitur mati.
+  keepsake: {
+    pin: String(process.env.KEEPSAKE_PIN || '').replace(/\s+/g, ''),
+    // Alamat frontend dari sisi backend (di Docker: nama service "frontend").
+    renderUrl: String(process.env.KEEPSAKE_RENDER_URL || 'http://frontend').replace(/\/+$/, ''),
+    // Lokasi Chromium; kosong = dicari otomatis (/usr/bin/chromium-browser, dst.).
+    chromiumPath: process.env.CHROMIUM_PATH || process.env.PUPPETEER_EXECUTABLE_PATH || '',
+    maxAttempts: 5, // salah PIN sebanyak ini -> dikunci
+    lockMinutes: 15, // lama kunci
+    tokenDays: 30, // perangkat orang tua diingat selama ini
+  },
 };
 
 export default config;

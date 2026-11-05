@@ -27,6 +27,7 @@ import {
   DEFAULT_SECTIONS,
   DEFAULT_LAYOUT,
   DEFAULT_LOCATION,
+  DEFAULT_KEEPSAKE,
   DEFAULT_SEO,
   DEFAULT_TEXTS_BY_LOCALE,
   GENERIC_OG_SHA256,
@@ -172,10 +173,11 @@ const str = (v) => {
 };
 
 const childWord = CHILD_WORD[L][String(pick(b.gender) || 'female') === 'male' ? 'male' : 'female'];
-const vars = { nama: str(b.nickname) || '', anak: childWord, namaLengkap: str(b.fullName) || '' };
+// {orangTua} ("Robby & Intan") diisi setelah data orang tua dibaca (lihat bawah).
+const vars = { nama: str(b.nickname) || '', anak: childWord, namaLengkap: str(b.fullName) || '', orangTua: '' };
 function interpolate(text) {
   if (typeof text !== 'string') return text;
-  return text.replace(/\{(nama|anak|namaLengkap)\}/g, (_, k) => vars[k] ?? '');
+  return text.replace(/\{(nama|anak|namaLengkap|orangTua)\}/g, (_, k) => vars[k] ?? '');
 }
 const txt = (v) => interpolate(str(v));
 
@@ -322,6 +324,7 @@ const parents = (Array.isArray(raw.parents) ? raw.parents : []).map((p, i) => {
   return row;
 });
 if (!parents.length) warn('parents kosong: bagian "Dengan cinta" & nama di footer tidak tampil.');
+vars.orangTua = parents.map((p) => p.nickname || p.fullName).filter(Boolean).join(' & ');
 
 // --- doctors ---
 const doctors = (Array.isArray(raw.doctors) ? raw.doctors : []).map((d, i) => {
@@ -464,6 +467,13 @@ for (const [k, v] of Object.entries({ ...baseTexts, ...(raw.texts || {}) })) {
 for (const k of Object.keys(raw.texts || {})) {
   if (!(k in baseTexts)) warn(`texts.${k}: kunci tidak dikenal (salah ketik?). Lihat scripts/lib/defaults.mjs`);
 }
+
+// --- buku kenangan (PDF untuk orang tua) ---
+const keepsake = { ...DEFAULT_KEEPSAKE, ...(isPlainObject(raw.keepsake) ? raw.keepsake : {}) };
+for (const k of Object.keys(raw.keepsake || {})) {
+  if (!(k in DEFAULT_KEEPSAKE)) warn(`keepsake.${k}: tidak dikenal (diabaikan). Pilihan: ${Object.keys(DEFAULT_KEEPSAKE).join(', ')}`);
+}
+keepsake.enabled = !!keepsake.enabled;
 
 // --- seo ---
 const seoRaw = { ...DEFAULT_SEO, ...(raw.seo || {}) };
@@ -630,6 +640,7 @@ const frontendConfig = {
   location,
   layout,
   sections,
+  keepsake,
   texts,
   seo,
 };

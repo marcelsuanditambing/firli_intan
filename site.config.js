@@ -273,6 +273,9 @@ export default {
 
     // Page 10 — penutup
     footerThanks: 'Thank you for keeping Firli in your prayers and surrounding him with so much love.',
+
+    // Buku Kenangan — tulisan kecil di footer (hanya untuk orang tua, dibuka dengan PIN)
+    keepsakeLink: 'For Robby & Intan',
   },
 
   // ---------------------------------------------------------------------------
@@ -282,5 +285,17 @@ export default {
     title: 'Fasabbihka Firliandra Tabrani · Birth Announcement',
     description: null, // = baby.description
     ogImage: '/og-image.png', // buat ulang: python3 scripts/make-og-image.py
+  },
+
+  // ---------------------------------------------------------------------------
+  // 10. BUKU KENANGAN (PDF A5) — khusus orang tua
+  //     Tautan "For Robby & Intan" di footer -> masukkan PIN -> unduh PDF berisi
+  //     cerita, foto, dan SEMUA ucapan terbaru.
+  //     PIN TIDAK ditulis di sini (repo bisa dilihat orang). Isi di file .env server:
+  //       KEEPSAKE_PIN=<angka PIN>
+  //     (.env tidak ikut ke GitHub). PIN kosong = tautan tidak tampil.
+  // ---------------------------------------------------------------------------
+  keepsake: {
+    enabled: true,
   },
 };

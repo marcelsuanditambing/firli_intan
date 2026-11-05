@@ -42,6 +42,9 @@ Status codes: 200 OK, 201 Created, 404 Not Found, 409 Conflict,
 | GET    | `/api/wishes`   | Approved wishes                  | paginate; search `?q=`; newest first |
 | POST   | `/api/wishes`   | Submit a wish                    | body below |
 | POST   | `/api/visitor`  | Record a page visit              | body below |
+| GET    | `/api/keepsake/status`   | Keepsake book on/off      | `{ enabled }` — true when `KEEPSAKE_PIN` is set |
+| POST   | `/api/keepsake/unlock`   | Check the parents' PIN    | body `{ "pin": "…" }` → `{ token, expires_at }` (30 days); 401 `{ attempts_left }`; 429 `{ retry_after_seconds }` after 5 wrong tries (15 min) |
+| GET    | `/api/keepsake/book.pdf` | Keepsake book (A5 PDF)    | `Authorization: Bearer <token>`; rendered by Chromium from `/keepsake.html` with all approved wishes; cached ≤10 min |
 
 ### POST /api/wishes
 ```json

@@ -91,6 +91,9 @@ export default {
     "gift": false,
     "share": false
   },
+  "keepsake": {
+    "enabled": true
+  },
   "texts": {
     "splashEyebrow": "",
     "splashIntro": "With hearts full of love, we are overjoyed to share our happy news and introduce our little boy to our family,",
@@ -199,7 +202,32 @@ export default {
     "ariaGoToPhoto": "Go to photo {i}",
     "ariaPrevPage": "Previous",
     "ariaNextPage": "Next",
-    "ariaMap": "Location map"
+    "ariaMap": "Location map",
+    "keepsakeLink": "For Robby & Intan",
+    "keepsakeTitle": "Keepsake Book",
+    "keepsakeIntro": "A little A5 book with Firli’s story, photos and every wish from family and friends. Ready to keep or to print.",
+    "keepsakePinLabel": "PIN",
+    "keepsakePinPlaceholder": "Enter your PIN",
+    "keepsakeUnlock": "Unlock",
+    "keepsakeChecking": "Checking…",
+    "keepsakeWrongPin": "That PIN is not right.",
+    "keepsakeTriesLeft": "{n} tries left.",
+    "keepsakeLocked": "Too many tries. Please try again in {n} minutes.",
+    "keepsakeRelock": "Please enter the PIN once more.",
+    "keepsakeDownload": "Download the book (PDF)",
+    "keepsakePreparing": "Preparing your book… this takes a few seconds.",
+    "keepsakeDone": "Your book has been downloaded.",
+    "keepsakeError": "The book could not be made right now. Please try again in a minute.",
+    "keepsakeRemembered": "This device stays unlocked for 30 days.",
+    "keepsakeLockDevice": "Lock this device",
+    "keepsakeClose": "Close",
+    "keepsakeFileName": "Firli-Keepsake-Book",
+    "keepsakeCoverLabel": "Keepsake Book",
+    "keepsakeWishesTitle": "Love from Family & Friends",
+    "keepsakeWishesCount": "{n} wishes",
+    "keepsakeWishesCountOne": "1 wish",
+    "keepsakeMadeOn": "Made on {date}",
+    "keepsakeNotice": "This page is used to create the keepsake book. Open it from the link at the bottom of the website."
   },
   "seo": {
     "title": "Fasabbihka Firliandra Tabrani · Birth Announcement",

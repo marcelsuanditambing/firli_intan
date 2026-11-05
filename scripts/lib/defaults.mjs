@@ -161,6 +161,12 @@ export const DEFAULT_LAYOUT = {
   order: ['profile', 'nameStory', 'birthInfo', 'ageCounter', 'story', 'timeline', 'gallery', 'gift', 'location', 'doctors', 'stats', 'wishes', 'share'],
 };
 
+// Buku Kenangan (PDF A5) untuk orang tua: tautan kecil di footer -> PIN -> unduh.
+// PIN TIDAK ditulis di site.config.js, tetapi di .env server (KEEPSAKE_PIN).
+export const DEFAULT_KEEPSAKE = {
+  enabled: false,
+};
+
 export const DEFAULT_LOCATION = {
   show: true,
   title: { id: 'Kediaman Kami', en: 'Our Home' },
@@ -326,6 +332,33 @@ export const DEFAULT_TEXTS_BY_LOCALE = {
     ariaPrevPage: 'Sebelumnya',
     ariaNextPage: 'Berikutnya',
     ariaMap: 'Peta lokasi',
+
+    // Buku Kenangan (PDF) — tautan di footer, kotak PIN, dan isi buku
+    keepsakeLink: 'Untuk {orangTua}',
+    keepsakeTitle: 'Buku Kenangan',
+    keepsakeIntro: 'Buku kecil ukuran A5 berisi cerita, foto, dan semua ucapan untuk {nama} dari keluarga & sahabat. Siap disimpan atau dicetak.',
+    keepsakePinLabel: 'PIN',
+    keepsakePinPlaceholder: 'Masukkan PIN',
+    keepsakeUnlock: 'Buka',
+    keepsakeChecking: 'Memeriksa…',
+    keepsakeWrongPin: 'PIN salah.',
+    keepsakeTriesLeft: 'Sisa {n} kali percobaan.',
+    keepsakeLocked: 'Terlalu banyak percobaan. Coba lagi dalam {n} menit.',
+    keepsakeRelock: 'Masukkan PIN sekali lagi.',
+    keepsakeDownload: 'Unduh buku (PDF)',
+    keepsakePreparing: 'Menyiapkan buku… tunggu beberapa detik.',
+    keepsakeDone: 'Buku sudah diunduh.',
+    keepsakeError: 'Buku belum bisa dibuat. Coba lagi sebentar lagi.',
+    keepsakeRemembered: 'Perangkat ini tetap terbuka selama 30 hari.',
+    keepsakeLockDevice: 'Kunci perangkat ini',
+    keepsakeClose: 'Tutup',
+    keepsakeFileName: 'Buku-Kenangan-{nama}',
+    keepsakeCoverLabel: 'Buku Kenangan',
+    keepsakeWishesTitle: 'Ucapan dari Keluarga & Sahabat',
+    keepsakeWishesCount: '{n} ucapan',
+    keepsakeWishesCountOne: '1 ucapan',
+    keepsakeMadeOn: 'Dibuat pada {date}',
+    keepsakeNotice: 'Halaman ini dipakai untuk membuat Buku Kenangan. Buka melalui tautan di bagian bawah website.',
   },
 
   en: {
@@ -454,6 +487,32 @@ export const DEFAULT_TEXTS_BY_LOCALE = {
     ariaPrevPage: 'Previous',
     ariaNextPage: 'Next',
     ariaMap: 'Location map',
+
+    keepsakeLink: 'For {orangTua}',
+    keepsakeTitle: 'Keepsake Book',
+    keepsakeIntro: 'A little A5 book with {nama}’s story, photos and every wish from family and friends. Ready to keep or to print.',
+    keepsakePinLabel: 'PIN',
+    keepsakePinPlaceholder: 'Enter your PIN',
+    keepsakeUnlock: 'Unlock',
+    keepsakeChecking: 'Checking…',
+    keepsakeWrongPin: 'That PIN is not right.',
+    keepsakeTriesLeft: '{n} tries left.',
+    keepsakeLocked: 'Too many tries. Please try again in {n} minutes.',
+    keepsakeRelock: 'Please enter the PIN once more.',
+    keepsakeDownload: 'Download the book (PDF)',
+    keepsakePreparing: 'Preparing your book… this takes a few seconds.',
+    keepsakeDone: 'Your book has been downloaded.',
+    keepsakeError: 'The book could not be made right now. Please try again in a minute.',
+    keepsakeRemembered: 'This device stays unlocked for 30 days.',
+    keepsakeLockDevice: 'Lock this device',
+    keepsakeClose: 'Close',
+    keepsakeFileName: '{nama}-Keepsake-Book',
+    keepsakeCoverLabel: 'Keepsake Book',
+    keepsakeWishesTitle: 'Love from Family & Friends',
+    keepsakeWishesCount: '{n} wishes',
+    keepsakeWishesCountOne: '1 wish',
+    keepsakeMadeOn: 'Made on {date}',
+    keepsakeNotice: 'This page is used to create the keepsake book. Open it from the link at the bottom of the website.',
   },
 };
 

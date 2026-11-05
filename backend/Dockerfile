@@ -1,10 +1,17 @@
 # =============================================================================
 # Backend Dockerfile - Node.js + Express (production)
 # =============================================================================
-FROM node:20-alpine
+FROM node:22-alpine
+
+# Chromium untuk membuat PDF Buku Kenangan, beserta font cadangan & emoji
+# (ucapan sering berisi emoji 🤲🥰 -> tetap tampil berwarna di PDF).
+RUN apk add --no-cache \
+      chromium nss freetype harfbuzz ca-certificates ttf-freefont font-noto-emoji
 
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV CHROMIUM_PATH=/usr/bin/chromium-browser
 WORKDIR /usr/src/app
 
 # Reproducible install of production deps only (uses package-lock.json)

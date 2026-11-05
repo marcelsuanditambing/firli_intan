@@ -61,6 +61,7 @@ services:
       dockerfile: Dockerfile
     container_name: ${APP_NAME:-babysite}_backend
     restart: unless-stopped
+    init: true   # membersihkan proses Chromium (Buku Kenangan) setelah selesai
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: ${BACKEND_PORT:-3000}
@@ -73,6 +74,9 @@ services:
       IP_HASH_SALT: ${IP_HASH_SALT:-change_me_random_salt}
       DEFAULT_BABY_SLUG: ${DEFAULT_BABY_SLUG:-}
       WISH_AUTO_APPROVE: ${WISH_AUTO_APPROVE:-true}
+      # Buku Kenangan (PDF): PIN orang tua. Kosong = fitur mati.
+      KEEPSAKE_PIN: ${KEEPSAKE_PIN:-}
+      KEEPSAKE_RENDER_URL: http://frontend
     depends_on:
       mariadb:
         condition: service_healthy

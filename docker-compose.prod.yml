@@ -100,6 +100,9 @@ services:
       IP_HASH_SALT: ${IP_HASH_SALT}
       DEFAULT_BABY_SLUG: ${DEFAULT_BABY_SLUG:-}
       WISH_AUTO_APPROVE: ${WISH_AUTO_APPROVE:-true}
+      # Buku Kenangan (PDF): PIN orang tua. Kosong = fitur mati.
+      KEEPSAKE_PIN: ${KEEPSAKE_PIN:-}
+      KEEPSAKE_RENDER_URL: http://frontend
     depends_on:
       mariadb:
         condition: service_healthy
@@ -114,7 +117,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512m
+          memory: 1g   # Chromium (Buku Kenangan) butuh ruang saat membuat PDF
 
   # ---------------------------------------------------------------------------
   frontend:

@@ -11,6 +11,15 @@ export const api = {
   createWish: (payload) => http.post('/wishes', payload),
   getStats: (params) => http.get('/stats', { params }),
   logVisit: (payload) => http.post('/visitor', payload),
+  // Buku Kenangan (PIN orang tua -> PDF)
+  getKeepsakeStatus: () => http.get('/keepsake/status'),
+  unlockKeepsake: (pin) => http.post('/keepsake/unlock', { pin }),
+  downloadKeepsake: (token) =>
+    http.get('/keepsake/book.pdf', {
+      responseType: 'blob',
+      timeout: 120000, // membuat PDF butuh beberapa detik
+      headers: { Authorization: `Bearer ${token}` },
+    }),
 };
 
 export default api;
